@@ -561,6 +561,13 @@ include '../Modelo/conexion.php';
                         
                         <li>
                             <a href="#"><i class="fa fa-warning fa-fw"></i> Notificaciones</a>
+                            <ul class="nav nav-second-level">
+                                  <li>
+                                      <a href="historia_actividades.php"> historia de actividades </a>
+                                </li>
+                            </ul>
+
+
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-building-o fa-fw"></i> Actividades<span class="fa arrow"></span></a>
