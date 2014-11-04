@@ -9,7 +9,7 @@ session_start();
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+ 
 
 
     <!-- JQuery -->
@@ -143,41 +143,82 @@ session_start();
 				<div class="content_resize">
 					<div class="mainbar">
                                             <div class="article"><br><br>
-							<h2><span>Actividades</span></h2>	
+                                                
+                                                
+					<h2><span>Asignar Permisos</span></h2>	
 							
 						</div>
                                             
                                             
-                                   <div class="historia1">
+                                                         
+                                            
+							<?php
+							
+							?>			
+								<div id="contenido">
+			
+								<form action="crear_permisos.php" method="post">
+									<center>
+										<table border=0 width=80%>
+											<tr>
+												<td >
+													<p style="text-align:right;">Rol :</p>
+												</td>
+												<td>
+												<select required name="id_rol"><option  value="">---Seleccione Rol---</option>
+													<?php 
+														$link=mysql_connect("localhost","root",""); 
+														mysql_select_db("saetis",$link); 
+														$sql="SELECT * FROM rol"; 
+														$result=mysql_query($sql); 
+															while($row=mysql_fetch_array($result)) 
+																echo "<option  value='".$row["ROL_R"]."'>".$row["ROL_R"]."</option>"; 
+													?>
+												</td>
+												<td >
+													<p style="text-align:right;">Menu :</p>
+												</td>
+												<td>
+												<select required name="id_menu"><option  value="">---Seleccione Menu---</option>
+													<?php 
+														$link=mysql_connect("localhost","root",""); 
+														mysql_select_db("saetis",$link); 
+														$sql="SELECT * FROM menu"; 
+														$result=mysql_query($sql); 
+															while($row=mysql_fetch_array($result)) 
+																echo "<option  value='".$row["id_menu"]."'>" 
+																 .$row["nom_menu"]."</option>"; 
+													?>
+												</td>
+												<td>
+													<input type="submit" value="Registrar">
+												</td>
+											</tr>
+										</table>
+									</center>	
+
+								</form>
+							</div>
+							<h2><span>Listado de Menus</span></h2>
 							<div class="contenedor-fila2">
-									
 								<div class="contenedor-columna">
 									<?php
-										echo "ID";
+										echo"Id Permiso";
 									?>
-								</div>	
+								</div>
+										
 								<div class="contenedor-columna">
 									<?php
-										echo "Usuario";
+										echo "Rol";
 									?>
 								</div>
 		
 								<div class="contenedor-columna">
 									<?php
-										echo "Fecha";
+										echo "Permisos";
 									?>
 								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "Hora";
-									?>
-								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "IP";
-									?>
-								</div>
-							</div>  
+							</div>
 							<?php
 								//crear conexion---------------------------
 								$conexion = mysql_connect("localhost","root","","saetis");
@@ -186,67 +227,59 @@ session_start();
 								//Seleccion
 								mysql_select_db("saetis",$conexion);
 								//Peticion
-								$peticion = mysql_query("SELECT * FROM `sesion` ");
-							
+								$peticion = mysql_query("SELECT p.id_permiso,m.nom_menu, r.ROL_R  
+
+FROM menu as m,rol as r, permisos as p
+where p.menu_id_menu=m.id_menu and r.ROL_R=p.ROL_R 
+														");
 
 								while($fila = mysql_fetch_array($peticion))
 								{
 							?>
 								<div class="contenedor-fila">
-									   <div class="contenedor-columna">
+									<div class="contenedor-columna">
 										<?php
-											echo $fila['ID_S'];
+											echo $fila['id_permiso'];
 										?>
 									</div>
 									
 									<div class="contenedor-columna">
 										<?php
-											echo $fila['NOMBRE_U'];
+											echo $fila['ROL_R'];
 										?>
 									</div>
 			
 									<div class="contenedor-columna">
 										<?php
-											echo $fila['FECHA_S'];
+											echo $fila['nom_menu'];
 										?>
 									</div>
 									
 									<div class="contenedor-columna">
 										<?php
-											echo $fila['HORA_S'];
+											echo "<a href ='eliminar_permisos.php?id_us=".$fila['id_permiso']."'><font color='blue'>Eliminar</font></a>";
 										?>
 									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['IP_S'];
-										?>
-									</div>
-                                                                        <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar</font></a>";
-										?>
-									</div>
-                                                                      
 									
 								</div>
-                                       
 								<?php
 								}
-
-								//Cerrar
-								mysql_close($conexion);
+							//Cerrar
+							mysql_close($conexion);
 							
-				
+							
 						?>	
-                                                                                                               <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora_total.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar Todo</font></a>";
-										?>
-									</div>
-                                                      </div>                                         
+							
+						</div>
+						
+				
+                               
                                             
                                             
+                                            
+                                            
+                                            
+                                       
                                             
 						
 					</div>

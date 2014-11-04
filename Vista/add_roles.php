@@ -9,7 +9,7 @@ session_start();
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+ 
 
 
     <!-- JQuery -->
@@ -141,43 +141,35 @@ session_start();
         <div id="page-wrapper">
      			<div class="content">
 				<div class="content_resize">
+                                            
+                                                         
 					<div class="mainbar">
-                                            <div class="article"><br><br>
-							<h2><span>Actividades</span></h2>	
-							
-						</div>
-                                            
-                                            
-                                   <div class="historia1">
+						<div class="article">
+							<h2><span>Nuevo Rol</span></h2>
+
+								<form action='crear_rol.php' method='POST'>
+									<div class="contenedor-fila">
+										<div class="contenedor-columna">
+										<p style="text-align:right;">Rol :</p>
+										</div>
+										<div class="contenedor-columna">
+											<input type='text' required name='rol'>
+										</div>
+										<div class="contenedor-columna">
+											<input type='submit'value="Actualizar" >
+										</div>
+									</div>
+								</form>
+							<h2><span>Listado Roles</span></h2>
 							<div class="contenedor-fila2">
-									
-								<div class="contenedor-columna">
-									<?php
-										echo "ID";
-									?>
-								</div>	
-								<div class="contenedor-columna">
-									<?php
-										echo "Usuario";
-									?>
-								</div>
 		
+										
 								<div class="contenedor-columna">
 									<?php
-										echo "Fecha";
+										echo "Rol";
 									?>
 								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "Hora";
-									?>
-								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "IP";
-									?>
-								</div>
-							</div>  
+							</div>
 							<?php
 								//crear conexion---------------------------
 								$conexion = mysql_connect("localhost","root","","saetis");
@@ -186,67 +178,44 @@ session_start();
 								//Seleccion
 								mysql_select_db("saetis",$conexion);
 								//Peticion
-								$peticion = mysql_query("SELECT * FROM `sesion` ");
+								$peticion = mysql_query("SELECT * FROM rol");
 							
 
 								while($fila = mysql_fetch_array($peticion))
 								{
 							?>
 								<div class="contenedor-fila">
-									   <div class="contenedor-columna">
-										<?php
-											echo $fila['ID_S'];
-										?>
-									</div>
+					
 									
 									<div class="contenedor-columna">
 										<?php
-											echo $fila['NOMBRE_U'];
+											echo $fila['ROL_R'];
 										?>
 									</div>
 			
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['FECHA_S'];
-										?>
-									</div>
 									
 									<div class="contenedor-columna">
 										<?php
-											echo $fila['HORA_S'];
+										echo "<a href ='eliminar_rol.php?id_us=".$fila['ROL_R']."'><font color='blue'>Eliminar</font></a>";
 										?>
 									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['IP_S'];
-										?>
-									</div>
-                                                                        <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar</font></a>";
-										?>
-									</div>
-                                                                      
 									
 								</div>
-                                       
 								<?php
 								}
-
-								//Cerrar
-								mysql_close($conexion);
+							//Cerrar
+							mysql_close($conexion);
 							
-				
 						?>	
-                                                                                                               <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora_total.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar Todo</font></a>";
-										?>
-									</div>
-                                                      </div>                                         
+							
+						</div>
+						
+					</div>                                            
+					
                                             
                                             
+                                            
+                                       
                                             
 						
 					</div>

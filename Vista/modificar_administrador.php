@@ -1,7 +1,6 @@
 <?php 
 session_start();
 
-
 ?>
 	<html>
 
@@ -67,7 +66,7 @@ session_start();
     
        		<title>Bienvenidos a SATIS</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/tabla-div.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
@@ -143,111 +142,137 @@ session_start();
 				<div class="content_resize">
 					<div class="mainbar">
                                             <div class="article"><br><br>
-							<h2><span>Actividades</span></h2>	
-							
-						</div>
-                                            
-                                            
-                                   <div class="historia1">
-							<div class="contenedor-fila2">
-									
-								<div class="contenedor-columna">
-									<?php
-										echo "ID";
-									?>
-								</div>	
-								<div class="contenedor-columna">
-									<?php
-										echo "Usuario";
-									?>
-								</div>
-		
-								<div class="contenedor-columna">
-									<?php
-										echo "Fecha";
-									?>
-								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "Hora";
-									?>
-								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "IP";
-									?>
-								</div>
-							</div>  
-							<?php
-								//crear conexion---------------------------
-								$conexion = mysql_connect("localhost","root","","saetis");
-								//Control
-								if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
-								//Seleccion
-								mysql_select_db("saetis",$conexion);
-								//Peticion
-								$peticion = mysql_query("SELECT * FROM `sesion` ");
 							
 
+                                                
+                                                
+							<h2><span>Modificar Informacion Personal</span></h2>
+			<div id="contenido">
+							<?php
+							
+							
+					                                $usuario= $_SESSION['usuario'];
+								
+
+                                                                        $usuario= $_SESSION['usuario'];
+									$contrasena= $_SESSION['contrasena'];
+
+									
+
+									//conexion-------------
+									$conexion = mysql_connect("localhost","root","");
+									//Control
+									if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
+									//Seleccion
+									mysql_select_db("saetis",$conexion);
+
+									//Peticion
+										$peticion = mysql_query("SELECT u.NOMBRE_U,u.PASSWORD_U,u.TELEFONO_U,u.CORREO_ELECTRONICO_U,a.NOMBRES_A,a.APELLIDOS_A FROM  usuario u, asesor a WHERE u.NOMBRE_U=a.NOMBRE_U  and u.NOMBRE_U='$usuario'");
+									//cerrar conexion--------------------------
+									 mysql_close($conexion);
 								while($fila = mysql_fetch_array($peticion))
 								{
-							?>
-								<div class="contenedor-fila">
-									   <div class="contenedor-columna">
-										<?php
-											echo $fila['ID_S'];
-										?>
-									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['NOMBRE_U'];
-										?>
-									</div>
-			
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['FECHA_S'];
-										?>
-									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['HORA_S'];
-										?>
-									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['IP_S'];
-										?>
-									</div>
-                                                                        <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar</font></a>";
-										?>
-									</div>
-                                                                      
-									
-								</div>
-                                       
-								<?php
+	
+								echo"
+								<form action='actualizar_integrante.php' method='post'>
+									<center>
+										<table border=0 width=80%>
+											<tr>
+												<td >
+													<p style='text-align:right;'>login :</p>
+												</td>
+												<td>
+													<input type='text' size=25% required name='login' readonly='readonly'  value='".$fila['NOMBRE_U']."'/>
+												</td>
+											</tr>
+											<tr>
+												<td >
+													<p style='text-align:right;'>password :</p>
+												</td>
+												<td>
+													<input type='text' size=25% required name='password' value='".$fila['PASSWORD_U']."'/>
+												</td>
+											</tr
+											<tr>
+												<td >
+													<p style='text-align:right;'>Nombres :</p>
+												</td>
+												<td>
+													<input type='text' size=25% required name='nombre' value='".$fila['NOMBRES_A']."'/>
+												</td>
+											</tr>
+											<tr>
+												<td >
+													<p style='text-align:right;'>Apellidos :</p>
+												</td>
+												<td>
+													<input type='text' size=25% required name='apellido' value='".$fila['APELLIDOS_A']."'/>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<p style='text-align:right;'>telefono:</p>
+												</td>
+												<td>
+													
+                                                                                                        <input type='text'  size=25% required name='telefono' value='".$fila['TELEFONO_U']."' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>  
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<p style='text-align:right;'>Email:</p>
+												</td>
+												<td >
+												<input type='mail' size=25% required name='email' value='".$fila['CORREO_ELECTRONICO_U']."'/>
+												</td>
+											</tr>
+											
+												<tr>
+												<td>
+												</td>
+												<td>
+													<input type='submit' value='Actualizar'>
+												</td>
+											</tr>
+										</table>
+									</center>
+								</form>
+								";
 								}
-
-								//Cerrar
-								mysql_close($conexion);
 							
+								?>
+								
+							</div>
+
+							
+						
+						
 				
-						?>	
-                                                                                                               <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora_total.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar Todo</font></a>";
-										?>
-									</div>
-                                                      </div>                                         
-                                            
-                                            
-                                            
+			
+	      
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+						</div>
 						
 					</div>
 			
@@ -259,7 +284,7 @@ session_start();
                
             <div class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">
- <ul class="nav" id="side-menu">
+                                       <ul class="nav" id="side-menu">
                         
                         
                         <li>
@@ -328,17 +353,20 @@ session_start();
   
                                     </ul>
                             <!-- /.nav-second-level -->
-                        </li>
- 
+                        </li>                       
+                        
+
                     </ul>
                     <!-- /#side-menu -->
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
-       		
+                                
+                            
+                           		
                         </div></div>
                         </div>
-			<div class="clr"></div>	<br><br><br><br><br><br>
+            <div class="clr"></div>	<br><br>
 			<div class="footer">
 			<div class="footer_resize">
 				<p class="lf"></p>
@@ -348,7 +376,8 @@ session_start();
 		<div align=center>
 			Esta pagina desarrollada por  <a class="registrar" href=''>Bittle.S.R.L.</a>
                 </div>
-
+                        
+            
         </div>
         <!-- /#page-wrapper -->
 

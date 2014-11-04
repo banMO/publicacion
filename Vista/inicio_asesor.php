@@ -121,7 +121,7 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-files-o "></i> Documentos <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                            <a href="../Vista/subirarchivoasesor.php">Subir Documentos</a>
+                                            <a href="../Vista/subirarchivoasesor.php">Subir Documen</a>
                                 </li>
                                 
                                 <li>

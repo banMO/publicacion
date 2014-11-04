@@ -164,10 +164,10 @@ include("controlSesion.php");
                             <a href="#"><i class="fa fa-bar-chart-o fa-files-o "></i> Informacion personal <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                            <a href="../Vista/subirarchivoasesor.php">nueva cuenta</a>
+                                    <a href="../Vista/registro_administrador.php">nueva cuenta</a>
                                 </li>
                                 <li>
-                                            <a href="../Vista/subirarchivoasesor.php">privacidad</a>
+                                    <a href="../Vista/modificar_administrador.php">privacidad</a>
                                 </li>
                             </ul>
                             
@@ -181,7 +181,13 @@ include("controlSesion.php");
                                     <a href="lista_usuarios.php">Usuarios Registrados</a>
                                 </li>
                                 <li>
-                                    <a href="notificacion_conformidad.php">permisos</a>
+                                    <a href="asignar_permisos.php">Modificar Permisos Usuarios</a>
+                                </li>
+                                 <li>
+                                     <a href="add_roles.php">Añadir  Roles</a>
+                                </li>
+                                 <li>
+                                    <a href="lista_roles.php">Asignar Permisos Roles</a>
                                 </li>
                                 <li>
                                     <a href="#">grupo empresa <span class="fa arrow"></span></a>
@@ -209,6 +215,18 @@ include("controlSesion.php");
                                     </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                         <li>
+                            <a href="#"><i class="fa fa-building-o fa-fw"></i>Enviar mensaje <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="enviar_mail.php">nuevo mensaje</a>
+                                            
+                                        </li>
+
+  
+                                    </ul>
+                            <!-- /.nav-second-level -->
+                        </li>                       
                         
 
                     </ul>

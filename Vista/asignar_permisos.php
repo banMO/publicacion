@@ -9,7 +9,7 @@ session_start();
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+ 
 
 
     <!-- JQuery -->
@@ -153,31 +153,21 @@ session_start();
 									
 								<div class="contenedor-columna">
 									<?php
-										echo "ID";
+										echo "Nombre";
 									?>
 								</div>	
 								<div class="contenedor-columna">
 									<?php
-										echo "Usuario";
+										echo "Estado";
 									?>
 								</div>
 		
 								<div class="contenedor-columna">
 									<?php
-										echo "Fecha";
+										echo "rol";
 									?>
 								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "Hora";
-									?>
-								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "IP";
-									?>
-								</div>
-							</div>  
+                                                        </div>  
 							<?php
 								//crear conexion---------------------------
 								$conexion = mysql_connect("localhost","root","","saetis");
@@ -186,7 +176,9 @@ session_start();
 								//Seleccion
 								mysql_select_db("saetis",$conexion);
 								//Peticion
-								$peticion = mysql_query("SELECT * FROM `sesion` ");
+								$peticion = mysql_query("SELECT u.NOMBRE_U, u.ESTADO_E, r.ROL_R
+FROM usuario u , usuario_rol r
+WHERE  u.NOMBRE_U = r.NOMBRE_U ");
 							
 
 								while($fila = mysql_fetch_array($peticion))
@@ -195,37 +187,28 @@ session_start();
 								<div class="contenedor-fila">
 									   <div class="contenedor-columna">
 										<?php
-											echo $fila['ID_S'];
-										?>
-									</div>
-									
-									<div class="contenedor-columna">
-										<?php
 											echo $fila['NOMBRE_U'];
 										?>
 									</div>
+									
+									<div class="contenedor-columna">
+										<?php
+											echo $fila['ESTADO_E'];
+										?>
+									</div>
 			
+								
 									<div class="contenedor-columna">
 										<?php
-											echo $fila['FECHA_S'];
+											echo $fila['ROL_R'];
 										?>
-									</div>
-									
-									<div class="contenedor-columna">
+									</div>                                                                    
+                                                                    <div class="contenedor-columna">
 										<?php
-											echo $fila['HORA_S'];
+											echo "<a href ='modificar_permiso.php?id_us=".$fila['NOMBRE_U']."'><font color='blue'>Modificar</font></a>";
+                                                                                        
 										?>
-									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['IP_S'];
-										?>
-									</div>
-                                                                        <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar</font></a>";
-										?>
+               
 									</div>
                                                                       
 									
@@ -236,17 +219,14 @@ session_start();
 
 								//Cerrar
 								mysql_close($conexion);
-							
-				
 						?>	
-                                                                                                               <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora_total.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar Todo</font></a>";
-										?>
-									</div>
+                                                           
                                                       </div>                                         
                                             
+                               
                                             
+                                            
+                                       
                                             
 						
 					</div>
@@ -259,7 +239,7 @@ session_start();
                
             <div class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">
- <ul class="nav" id="side-menu">
+  <ul class="nav" id="side-menu">
                         
                         
                         <li>
@@ -338,7 +318,7 @@ session_start();
        		
                         </div></div>
                         </div>
-			<div class="clr"></div>	<br><br><br><br><br><br>
+			<div class="clr"></div>	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 			<div class="footer">
 			<div class="footer_resize">
 				<p class="lf"></p>

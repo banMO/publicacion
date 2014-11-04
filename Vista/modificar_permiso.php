@@ -1,7 +1,6 @@
 <?php 
 session_start();
 
-
 ?>
 	<html>
 
@@ -67,7 +66,7 @@ session_start();
     
        		<title>Bienvenidos a SATIS</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/tabla-div.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
@@ -143,111 +142,179 @@ session_start();
 				<div class="content_resize">
 					<div class="mainbar">
                                             <div class="article"><br><br>
-							<h2><span>Actividades</span></h2>	
-							
-						</div>
-                                            
-                                            
-                                   <div class="historia1">
-							<div class="contenedor-fila2">
-									
-								<div class="contenedor-columna">
-									<?php
-										echo "ID";
-									?>
-								</div>	
-								<div class="contenedor-columna">
-									<?php
-										echo "Usuario";
-									?>
-								</div>
-		
-								<div class="contenedor-columna">
-									<?php
-										echo "Fecha";
-									?>
-								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "Hora";
-									?>
-								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "IP";
-									?>
-								</div>
-							</div>  
-							<?php
-								//crear conexion---------------------------
-								$conexion = mysql_connect("localhost","root","","saetis");
-								//Control
-								if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
-								//Seleccion
-								mysql_select_db("saetis",$conexion);
-								//Peticion
-								$peticion = mysql_query("SELECT * FROM `sesion` ");
 							
 
+                                                
+                                                
+							<h2><span> Informacion Personal</span></h2>
+			<div id="contenido">
+							<?php
+							
+							
+					                                $usuario= $_SESSION['usuario'];
+								
+
+                                                                        $usuario= $_SESSION['usuario'];
+									$contrasena= $_SESSION['contrasena'];
+                                                                         $idgp = $_GET['id_us'];
+									
+
+									//conexion-------------
+									$conexion = mysql_connect("localhost","root","");
+									//Control
+									if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
+									//Seleccion
+									mysql_select_db("saetis",$conexion);
+
+									//Peticion
+										$peticion = mysql_query("SELECT u.NOMBRE_U,u.ESTADO_E, r.ROL_R FROM  usuario as u,usuario_rol as r  WHERE u.NOMBRE_U=r.NOMBRE_U and u.NOMBRE_U='$idgp'");
+									//cerrar conexion--------------------------
+									 mysql_close($conexion);
 								while($fila = mysql_fetch_array($peticion))
 								{
-							?>
-								<div class="contenedor-fila">
-									   <div class="contenedor-columna">
-										<?php
-											echo $fila['ID_S'];
-										?>
-									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['NOMBRE_U'];
-										?>
-									</div>
-			
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['FECHA_S'];
-										?>
-									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['HORA_S'];
-										?>
-									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['IP_S'];
-										?>
-									</div>
-                                                                        <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar</font></a>";
-										?>
-									</div>
-                                                                      
-									
-								</div>
-                                       
-								<?php
-								}
+	
+								echo"
+								<form action='actualizar_integrante.php' method='post'>
+									<center>
+										<table border=0 width=80%>
+											<tr>
+												<td >
+													<p style='text-align:right;'>Nombre :&nbsp;&nbsp;</p>
+												</td>
+												<td>
+													<input type='text' size=25% required name='Nombre' readonly='readonly'  value='".$fila['NOMBRE_U']."'/>
+												</td>
+											</tr>
+											<tr>
+												<td >
+													<p style='text-align:right;'>Estado&nbsp; :&nbsp;&nbsp;</p>
+												</td>
+                                                                                                
 
-								//Cerrar
-								mysql_close($conexion);
-							
+												<td>
+													<input type='text' size=25% required name='Estado'  readonly='readonly' value='".$fila['ESTADO_E']."'/>
+												</td>
+                                                                                                
+
+
+
+											</tr
+											<tr>
+												<td >
+													<p style='text-align:right;'>Rol &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</p>
+												</td>
+												<td>
+													<input type='text' size=25% required name='rol'  readonly='readonly' value='".$fila['ROL_R']."'/>
+                                                                                                           
+												</td> 
+											</tr>
+											
+										
+										</table>
+									</center>
+								</form> 
+								";$rolAnt=$fila['ROL_R'];
+								}
+								?>
+                            
+								<?php 
+                                                                
+                                                                    $_SESSION["Variable1"] =$rolAnt ;
+                                                                    $_SESSION["Variable2"] = $idgp;
+                                                                    
+                                                                ?>
+							</div>
+
+<h2><span>Modificar Informacion Personal</span></h2>
+							<div id="contenido">
+                                                            <center>
+                                                                    <form action="modificar_permiso_tabla.php" method="post"  >
+									
+										<table border=0 width=80%> 
+                                                                                    <tr>
+												<td >
+													<p style="text-align:right;"> Estado :&nbsp;&nbsp;&nbsp;</p>
+												</td>
+												<td>
+                                                                                                    <select required="seleccione un estado" name="estado" ><option  value=" ">-Seleccione Un Estado-</option>
+													<?php 
+														$link=mysql_connect("localhost","root",""); 
+														mysql_select_db("saetis",$link); 
+														$sql="SELECT * FROM  estado "; 
+														$result=mysql_query($sql); 
+															while($row=mysql_fetch_array($result)) 
+													echo "<option  value='".$row["ESTADO_E"]."'>".$row["ESTADO_E"]."</option>";  
+                                                                                                                      
+                                                                                                       
+                                                                                                        ?>    
+                                                                                                     
+                                                                                                       </select> 
+                                                                                                </td> 
+                                                                                    </tr>             
+                                                                                     <tr>            
+                                                                                                 <td >
+												    <p style="text-align:right;"> Rol :&nbsp;&nbsp;&nbsp;</p>
+                                                                                                 </td>
+                                                                                                 <td>
+                                                                                                     <select required="seleccione un rol" name="roll" ><option  value=" ">---Seleccione Un Rol---</option>
+													<?php 
+														$link=mysql_connect("localhost","root",""); 
+														mysql_select_db("saetis",$link); 
+														$sql="SELECT * FROM  rol "; 
+														$result=mysql_query($sql); 
+															while($row=mysql_fetch_array($result)) 
+													echo "<option  value='".$row["ROL_R"]."'>".$row["ROL_R"]."</option>";  
+                                                                                                                      
+                                                                                                       
+                                                                                                        ?>    
+                                                                                                     
+                                                                                                       </select> 
+                                                                                                 </td>
+                                                                                                   
+						
+                                                                                     </tr> 
+                                                                                      <tr>
+                                                                                             <td >
+												    <p style="text-align:right;">&nbsp;&nbsp;&nbsp; </p>
+                                                                                                 </td>
+                                                                                     						<td>
+                                                                                                  <input type="submit" value="Seleccionar" align="middle" > 
+												</td>    
+                                                                                     </tr>  
+                                                                                     
+										</table>
+									
+                                                            </center>
+								</form>
+							</div>
+						
+						
 				
-						?>	
-                                                                                                               <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora_total.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar Todo</font></a>";
-										?>
-									</div>
-                                                      </div>                                         
-                                            
-                                            
-                                            
+			
+	      
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+                                                        
+						</div>
 						
 					</div>
 			
@@ -259,7 +326,7 @@ session_start();
                
             <div class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">
- <ul class="nav" id="side-menu">
+                    <ul class="nav" id="side-menu">
                         
                         
                         <li>
@@ -283,13 +350,7 @@ session_start();
                                     <a href="lista_usuarios.php">Usuarios Registrados</a>
                                 </li>
                                 <li>
-                                    <a href="asignar_permisos.php">Modificar Permisos Usuarios</a>
-                                </li>
-                                 <li>
-                                     <a href="add_roles.php">Añadir  Roles</a>
-                                </li>
-                                 <li>
-                                    <a href="lista_roles.php">Asignar Permisos Roles</a>
+                                    <a href="asignar_permisos.php">permisos</a>
                                 </li>
                                 <li>
                                     <a href="#">grupo empresa <span class="fa arrow"></span></a>
@@ -317,28 +378,19 @@ session_start();
                                     </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                         <li>
-                            <a href="#"><i class="fa fa-building-o fa-fw"></i>Enviar mensaje <span class="fa arrow"></span></a>
-                                        <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="enviar_mail.php">nuevo mensaje</a>
-                                            
-                                        </li>
+                        
 
-  
-                                    </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
- 
                     </ul>
                     <!-- /#side-menu -->
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
-       		
+                                
+                            
+                           		
                         </div></div>
                         </div>
-			<div class="clr"></div>	<br><br><br><br><br><br>
+            <div class="clr"></div>	<br><br>
 			<div class="footer">
 			<div class="footer_resize">
 				<p class="lf"></p>
@@ -348,7 +400,8 @@ session_start();
 		<div align=center>
 			Esta pagina desarrollada por  <a class="registrar" href=''>Bittle.S.R.L.</a>
                 </div>
-
+                        
+            
         </div>
         <!-- /#page-wrapper -->
 

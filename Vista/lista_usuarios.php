@@ -234,11 +234,12 @@ WHERE  u.NOMBRE_U = r.NOMBRE_U ");
 											echo $fila['ROL_R'];
 										?>
 									</div>                                                                    
-                                                                        <div class="contenedor-columna">
+<!--                                                                        <div class="contenedor-columna">
 										<?php
-											echo "<a href ='eliminar_bitacora.php?id_us=".$fila['NOMBRE_U']."'><font color='blue'>Eliminar</font></a>";
+											echo "<a href ='eliminar_usuario.php?id_us=".$fila['NOMBRE_U']."'><font color='blue'>Eliminar</font></a>";
+                                                                                       
 										?>
-									</div>
+									</div>-->
                                                                       
 									
 								</div>
@@ -248,14 +249,8 @@ WHERE  u.NOMBRE_U = r.NOMBRE_U ");
 
 								//Cerrar
 								mysql_close($conexion);
-							
-				
 						?>	
-                                                                                                               <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora_total.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar Todo</font></a>";
-										?>
-									</div>
+                                                           
                                                       </div>                                         
                                             
                                             
@@ -271,17 +266,17 @@ WHERE  u.NOMBRE_U = r.NOMBRE_U ");
                
             <div class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">
-                    <ul class="nav" id="side-menu">
+                                      <ul class="nav" id="side-menu">
                         
                         
-                         <li>
+                        <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-files-o "></i> Informacion personal <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                            <a href="../Vista/subirarchivoasesor.php">nueva cuenta</a>
+                                    <a href="../Vista/registro_administrador.php">nueva cuenta</a>
                                 </li>
                                 <li>
-                                            <a href="../Vista/subirarchivoasesor.php">privacidad</a>
+                                    <a href="../Vista/modificar_administrador.php">privacidad</a>
                                 </li>
                             </ul>
                             
@@ -295,7 +290,13 @@ WHERE  u.NOMBRE_U = r.NOMBRE_U ");
                                     <a href="lista_usuarios.php">Usuarios Registrados</a>
                                 </li>
                                 <li>
-                                    <a href="notificacion_conformidad.php">permisos</a>
+                                    <a href="asignar_permisos.php">Modificar Permisos Usuarios</a>
+                                </li>
+                                 <li>
+                                     <a href="add_roles.php">Añadir  Roles</a>
+                                </li>
+                                 <li>
+                                    <a href="lista_roles.php">Asignar Permisos Roles</a>
                                 </li>
                                 <li>
                                     <a href="#">grupo empresa <span class="fa arrow"></span></a>
@@ -323,7 +324,20 @@ WHERE  u.NOMBRE_U = r.NOMBRE_U ");
                                     </ul>
                             <!-- /.nav-second-level -->
                         </li>
- 
+                         <li>
+                            <a href="#"><i class="fa fa-building-o fa-fw"></i>Enviar mensaje <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="enviar_mail.php">nuevo mensaje</a>
+                                            
+                                        </li>
+
+  
+                                    </ul>
+                            <!-- /.nav-second-level -->
+                        </li>                       
+                        
+
                     </ul>
                     <!-- /#side-menu -->
                 </div>
@@ -332,8 +346,9 @@ WHERE  u.NOMBRE_U = r.NOMBRE_U ");
        		
                         </div></div>
                         </div>
-			<div class="clr"></div>	<br><br><br><br><br><br>
+			<div class="clr"></div>	<br><br><br><br><br><br><br><br><br><br><br><br><br>
 			<div class="footer">
+			
 			<div class="footer_resize">
 				<p class="lf"></p>
 				<div style="clear:both;"></div>

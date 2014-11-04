@@ -554,20 +554,18 @@ include '../Modelo/conexion.php';
                                 <li>
                                     <a href="seleccionar_asesor.php">Seleccionar Asesor</a>
                                 </li>
-                                
+    
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         
                         <li>
-                            <a href="#"><i class="fa fa-warning fa-fw"></i> Notificaciones</a>
-                            <ul class="nav nav-second-level">
-                                  <li>
-                                      <a href="historia_actividades.php"> historia de actividades </a>
+                            <a href="#"><i class="fa fa-warning fa-fw"></i> Notificaaaazzzasciones</a>
+                                 <ul class="nav nav-second-level">       
+                                 <li>
+                                    <a href="seleccionar_asesor.php">Seleccionar Asesor</a>
                                 </li>
-                            </ul>
-
-
+                               </ul>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-building-o fa-fw"></i> Actividades<span class="fa arrow"></span></a>

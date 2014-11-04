@@ -245,7 +245,7 @@
     Grupo Empresa:
     <form method="POST" action="emtirContrato.php" enctype="Multipart/form-data">
         <select name="grupoempresa" class="form-control">
-            <option>Seleccione una grupo empresa</option>
+            <option>Seleccione una grupo </option>
             <?php
                 $idAsesor='leticia';
                 $c1="SELECT ge.`NOMBRE_LARGO_GE` FROM `inscripcion` AS i,`asesor` AS a,`grupo_empresa` AS `ge`,`gestion` AS g,`proyecto` AS p WHERE i.`NOMBRE_UA` = a.`NOMBRE_U` AND i.`NOMBRE_UGE` = ge.`NOMBRE_U` AND i.`ID_G` = g.`ID_G` AND i.`CODIGO_P` = p.`CODIGO_P` AND a.`NOMBRE_U` LIKE '$idAsesor'";

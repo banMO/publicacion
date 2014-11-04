@@ -2,6 +2,10 @@
 session_start();
 
 
+
+		$addNomInte = '';						
+						
+      
 ?>
 	<html>
 
@@ -150,30 +154,34 @@ session_start();
 
                                             
                                             
-                                            
+                                                                        
 								<div id="contenido">
 			
-								<form action="crear_permisos.php" method="post">
+                                                                    <form action="lista_grupoEmpresa.php" method="post"  >
 									<center>
 										<table border=0 width=80%>
 											<tr>
 												<td >
-													<p style="text-align:right;">Grupo Empresa :</p>
+													<p style="text-align:right;"> Grupo Empresa :</p>
 												</td>
 												<td>
-                                                                                                    <select name="NOMBRE_U"><option  value="">---Seleccione Un grupo Empresa---</option>
+                                                                                                    <select required name="NOMBRE_U" ><option  value="">---Seleccione Un grupo Empresa---</option>
 													<?php 
 														$link=mysql_connect("localhost","root",""); 
 														mysql_select_db("saetis",$link); 
 														$sql="SELECT u.NOMBRE_U FROM usuario u, usuario_rol r WHERE  u.NOMBRE_U=r.NOMBRE_U and r.ROL_R='grupoempresa'"; 
 														$result=mysql_query($sql); 
 															while($row=mysql_fetch_array($result)) 
-													echo "<option  value='".$row["NOMBRE_U"]."'>".$row["NOMBRE_U"]."</option>";   
-                                                                                                        ?> 
+													echo "<option  value='".$row["NOMBRE_U"]."'>".$row["NOMBRE_U"]."</option>";  
+                                                                                                                      
+                                                                                                             $addNomInte=$_REQUEST["NOMBRE_U"];
+                                                                                                        ?>    
+                                                                                                     
+                                                                                                       </select> 
 												</td>
 												<td>
-													<input type="submit" value="Seleccionar">
-												</td>
+													<input type="submit" value="Seleccionar" > 
+												</td>    
 											</tr>
 										</table>
 									</center>	
@@ -184,43 +192,63 @@ session_start();
 							<div class="contenedor-fila2">
 								<div class="contenedor-columna">
 									<?php
-										echo"Id       ";
+										echo"Id       ";  
+
+									?>
+								</div>
+                                                                <div class="contenedor-columna">
+									<?php
+										echo"Empresa";  
+
 									?>
 								</div>
 										
 								<div class="contenedor-columna">
 									<?php
-										echo "NOMBRES_S";
+										echo "Nombres"; 
 									?>
 								</div>
 		
 								<div class="contenedor-columna">
 									<?php
-										echo "APELLIDOS_S";
+										echo "Apellido";
+									?>
+								</div>
+                                                                <div class="contenedor-columna">
+									<?php
+										echo "Login";
+									?>
+								</div>
+                                                                <div class="contenedor-columna">
+									<?php
+										echo "Password";
 									?>
 								</div>
 							</div>
-							<?php
-								//crear conexion---------------------------
+							<?php     
+                                                        								//crear conexion---------------------------
 								$conexion = mysql_connect("localhost","root","","saetis");
 								//Control
 								if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
 								//Seleccion
 								mysql_select_db("saetis",$conexion);
 								//Peticion
-								$peticion = mysql_query("SELECT CODIGO_S,NOMBRES_S,APELLIDOS_S FROM socio WHERE NOMBRE_U=$sql
+								$peticion = mysql_query(" SELECT CODIGO_S,NOMBRE_U, NOMBRES_S, APELLIDOS_S,LOGIN_S,PASSWORD_S FROM socio WHERE NOMBRE_U='$addNomInte'
 													");
 
 								while($fila = mysql_fetch_array($peticion))
 								{
-							?>
-								<div class="contenedor-fila">
+							?><div class="contenedor-fila">
 									<div class="contenedor-columna">
 										<?php
 											echo $fila['CODIGO_S'];
 										?>
 									</div>
-									
+								<div class="contenedor-columna">
+										<?php
+											echo $fila['NOMBRE_U'];
+										?>
+									</div>
 									<div class="contenedor-columna">
 										<?php
 											echo $fila['NOMBRES_S'];
@@ -232,10 +260,20 @@ session_start();
 											echo $fila['APELLIDOS_S'];   
 										?>
 									</div>
+                                                                        <div class="contenedor-columna">
+										<?php
+											echo $fila['LOGIN_S'];   
+										?>
+									</div>
+                                                                        <div class="contenedor-columna">
+										<?php
+											echo $fila['PASSWORD_S'];   
+										?>
+									</div>
 									
 									<div class="contenedor-columna">
 										<?php
-											echo "<a href ='eliminar_bitacora.php?id_us=".$fila['CODIGO_S']."'>Eliminar</a>";
+											echo "<a href ='eliminar_grupoEmpresa.php?id_us=".$fila['CODIGO_S']."'><font color='blue'>Eliminar</font></a>";
 										?>
 									</div>
 									
@@ -244,17 +282,16 @@ session_start();
 								}
 							//Cerrar
 							mysql_close($conexion);
-						
+                                                      
+                                                            
+                                                            
                                                         
-						?>	
-							
+						?><?php
+								
+							?>
 						</div>
 						
-								<?php
-                                            
-							echo date(Y);			
-						?>	                                            
-                                            		
+					
                                             
 						
 					</div>
@@ -267,17 +304,17 @@ session_start();
                
             <div class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">
-                    <ul class="nav" id="side-menu">
+ <ul class="nav" id="side-menu">
                         
                         
-                         <li>
+                        <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-files-o "></i> Informacion personal <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                            <a href="../Vista/subirarchivoasesor.php">nueva cuenta</a>
+                                    <a href="../Vista/registro_administrador.php">nueva cuenta</a>
                                 </li>
                                 <li>
-                                            <a href="../Vista/subirarchivoasesor.php">privacidad</a>
+                                    <a href="../Vista/modificar_administrador.php">privacidad</a>
                                 </li>
                             </ul>
                             
@@ -291,13 +328,19 @@ session_start();
                                     <a href="lista_usuarios.php">Usuarios Registrados</a>
                                 </li>
                                 <li>
-                                    <a href="notificacion_conformidad.php">permisos</a>
+                                    <a href="asignar_permisos.php">Modificar Permisos Usuarios</a>
+                                </li>
+                                 <li>
+                                     <a href="add_roles.php">Añadir  Roles</a>
+                                </li>
+                                 <li>
+                                    <a href="lista_roles.php">Asignar Permisos Roles</a>
                                 </li>
                                 <li>
                                     <a href="#">grupo empresa <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li>
-                                            <a href="CrearModalidadEvaluacion.php"> integrantes </a>
+                                            <a href="lista_grupoEmpresa.php"> integrantes </a>
                                             
                                         </li>
                                     </ul>
@@ -312,6 +355,18 @@ session_start();
                                         <ul class="nav nav-third-level">
                                         <li>
                                             <a href="bitacora_ingreso.php">registro</a>
+                                            
+                                        </li>
+
+  
+                                    </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                         <li>
+                            <a href="#"><i class="fa fa-building-o fa-fw"></i>Enviar mensaje <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="enviar_mail.php">nuevo mensaje</a>
                                             
                                         </li>
 
@@ -339,13 +394,10 @@ session_start();
 			Esta pagina desarrollada por  <a class="registrar" href=''>Bittle.S.R.L.</a>
                 </div>
 
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-
+     
     <script src="../Librerias/js/plugins/metisMenu/jquery.metisMenu.js"></script>
     <script src="../Librerias/js/sb-admin.js"></script>
 </body>
 
-</html>
+        </html>   
+

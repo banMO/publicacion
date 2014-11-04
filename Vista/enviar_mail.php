@@ -7,6 +7,22 @@ session_start();
 
 <head>
 
+    		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="css/tabla-div.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="css/coin-slider.css" />
+		
+		<script type="text/javascript" src="js/cufon-yui.js"></script>
+		<script type="text/javascript" src="js/cufon-aller.js"></script>
+		<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+		<script type="text/javascript" src="js/coin-slider.min.js"></script>
+		<script type="text/javascript" src="js/iconos.js"></script>
+    
+    
+    
+    
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -67,7 +83,7 @@ session_start();
     
        		<title>Bienvenidos a SATIS</title>
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
-<link href="css/tabla-div.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
@@ -143,111 +159,74 @@ session_start();
 				<div class="content_resize">
 					<div class="mainbar">
                                             <div class="article"><br><br>
-							<h2><span>Actividades</span></h2>	
+							<h2><span>Enviar Email</span></h2>	
 							
-						</div>
-                                            
-                                            
-                                   <div class="historia1">
-							<div class="contenedor-fila2">
-									
-								<div class="contenedor-columna">
-									<?php
-										echo "ID";
-									?>
-								</div>	
-								<div class="contenedor-columna">
-									<?php
-										echo "Usuario";
-									?>
-								</div>
-		
-								<div class="contenedor-columna">
-									<?php
-										echo "Fecha";
-									?>
-								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "Hora";
-									?>
-								</div>
-								<div class="contenedor-columna">
-									<?php
-										echo "IP";
-									?>
-								</div>
-							</div>  
-							<?php
-								//crear conexion---------------------------
-								$conexion = mysql_connect("localhost","root","","saetis");
-								//Control
-								if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
-								//Seleccion
-								mysql_select_db("saetis",$conexion);
-								//Peticion
-								$peticion = mysql_query("SELECT * FROM `sesion` ");
-							
-
-								while($fila = mysql_fetch_array($peticion))
-								{
-							?>
-								<div class="contenedor-fila">
-									   <div class="contenedor-columna">
-										<?php
-											echo $fila['ID_S'];
-										?>
-									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['NOMBRE_U'];
-										?>
-									</div>
+                                                        
+                                        
+							<h3><p>Debe de rellenar todos los campos correctamente</p></h3>
+							<div id="contenido">
 			
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['FECHA_S'];
-										?>
-									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['HORA_S'];
-										?>
-									</div>
-									
-									<div class="contenedor-columna">
-										<?php
-											echo $fila['IP_S'];
-										?>
-									</div>
-                                                                        <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar</font></a>";
-										?>
-									</div>
-                                                                      
-									
-								</div>
-                                       
-								<?php
-								}
-
-								//Cerrar
-								mysql_close($conexion);
+								<form action="crear_mail.php" method="post">
+									<center>
+										<table border=0 width=100%>
+											<tr>
+												<td >
+													<p style="text-align:right;"  >Destinatario :</p>
+												</td>
+												<td>
+													<select required name='dest' ><option value="" >-     Seleccione Destinatario     -</option>
+													<?php 
+														$link=mysql_connect("localhost","root",""); 
+														mysql_select_db("saetis",$link); 
+														$sql="SELECT NOMBRE_U from usuario"; 
+														$result=mysql_query($sql); 
+															while($row=mysql_fetch_array($result)) 
+																echo "<option  value='".$row["NOMBRE_U"]."'>" 
+																 .$row["NOMBRE_U"]."</option>"; 
+													?>	
+												</td>
+											</tr>
+											<tr>
+												<td >
+													<p style="text-align:right;">Asunto :</p>
+												</td>
+												<td>
+													<input type="text" size=55% required name="asunto"/>
+												</td>
+												<td >
+													<p style="text-align:right;">Fecha :</p>
+												</td>
+												<td>
+													<input type="date" size=25% required name="fec"/>
+												</td>
+											</tr>
+											<tr>
+												<td >
+													<p style="text-align:right;">Contenido :</p>
+												</td>
+												<td>
+                                                                                                    <textarea name='area_info' cols='53' rows='5' >Usted solicito un registro en saetis,   Ha sido validado satisfactoriamente, verifique haciendo click en el siguiente enlace: http://localhost:8080/freevalue/saetis/index2.php</textarea>
+												</td>
+											</tr>
 							
-				
-						?>	
-                                                                                                               <div class="contenedor-columna">
-										<?php
-											echo "<a href ='eliminar_bitacora_total.php?id_us=".$fila['ID_S']."'><font color='blue'>Eliminar Todo</font></a>";
-										?>
-									</div>
-                                                      </div>                                         
-                                            
-                                            
-                                            
+											<tr>
+												<td>
+												</td>
+                                                                                                <td>  <br>
+													<input type="submit" value="Enviar Email">
+												</td>
+											</tr>
+										</table>
+									</center>	
+
+								</form>
+							</div>
+							                                                   
+                                                        
+                                                        
+                                                        
+                                                        
+						</div>
 						
 					</div>
 			
@@ -259,7 +238,7 @@ session_start();
                
             <div class="navbar-default navbar-static-side" role="navigation">
                 <div class="sidebar-collapse">
- <ul class="nav" id="side-menu">
+                    <ul class="nav" id="side-menu">
                         
                         
                         <li>
@@ -328,17 +307,47 @@ session_start();
   
                                     </ul>
                             <!-- /.nav-second-level -->
-                        </li>
- 
+                        </li>                       
+                        
+
                     </ul>
                     <!-- /#side-menu -->
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
-       		
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                           		
                         </div></div>
                         </div>
-			<div class="clr"></div>	<br><br><br><br><br><br>
+			<div class="clr"></div>	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 			<div class="footer">
 			<div class="footer_resize">
 				<p class="lf"></p>
@@ -348,7 +357,8 @@ session_start();
 		<div align=center>
 			Esta pagina desarrollada por  <a class="registrar" href=''>Bittle.S.R.L.</a>
                 </div>
-
+                        
+            
         </div>
         <!-- /#page-wrapper -->
 

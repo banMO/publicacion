@@ -137,20 +137,23 @@
 						</div>
 						
 						<div class="article">
-							<h2><span>Noticias</span></h2>
+							<h2><span>Registrarse</span></h2>
 							<p class="infopost">&nbsp;</p>
-							<div class="clr"></div>
-							<div class="img">
-								<img src="images/img2.jpg" width="179" height="176" alt="" class="fl" />
-							</div>
 							
-							<div class="post_content">
-								<p>&nbsp;</p>
-								<p>&nbsp;</p>
-								<p>&nbsp;</p>
-								<p class="spec"><a href="#" class="rm">&bull; Leer mas</a></p>
-							</div>
-							<div class="clr"></div>
+                                                        
+                                                        
+                                                     	<form action="vista/RegistrarUsuario.php" method="post">
+									<center>
+										
+                                                                            <p> no eres usuario ? </p><BR>
+                                                             
+													<input type="submit" value="Registrate">
+							
+									</center>	
+
+								</form>
+                                                        
+                                                        
 						</div>
 					</div>
 			
@@ -170,7 +173,7 @@
 							</div>
 					
 					<br>
-                                        No eres Usuario Todavia ? <a class="registrar" href="registro_usuario.php">REGISTRATE</a> 			
+                                      			
 		
 				<div class="gadget">
 					<h2 class="star"><span>Paginas Universitarias</span></h2>
