@@ -42,7 +42,7 @@
     
     
     
-    	<link href="css/tabla-div.css" rel="stylesheet" type="text/css" />
+    	<link href="css/tabla-div1.css" rel="stylesheet" type="text/css" />
         
         
 </head>
@@ -64,7 +64,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="../index.php">Inicio </a>
+                <a class="navbar-brand" href="inicio_grupo_empresa.php">Inicio </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -184,6 +184,13 @@
                         
                         <li>
                             <a href="#"><i class="fa fa-warning fa-fw"></i> Notificaciones</a>
+                                                        <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="historia_actividades.php">Historia de actividades</a>
+                                </li>
+                                
+                            </ul>  
+                            
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-building-o fa-fw"></i> Actividades<span class="fa arrow"></span></a>
@@ -209,16 +216,15 @@
            
 <form id = "ordenc" method = "post" action="" role="form" enctype="multipart/data-form" onsubmit="return validarCampos(ordenc)">
         <div class ="form-horizontal">
-                <div class="row">
-              <div class="col-lg-12">
-                  <h1><small> HISTORIA DE ACTIVIDADES</small></h1>
-                 
+                        <div class="col-lg-12">
+                            <h1> HISTORIA DE ACTIVIDADES</h1><br><br>
                 </div>
-                       
-                           <div class="historia">
-                               <h2><span><small>ACTIVIDADES EN LINEA</small></span></h2><br><br>   
+
+                    <div class="historia">
+                        
+                               <h2><span>ACTIVIDADES EN LINEA</span></h2>
 			</div>
-                   
+                   <hr>
                                 <div class="historia1">
 							<div class="contenedor-fila2">
 									
@@ -310,20 +316,13 @@
 				
 						?>	
                                                       </div>	
-                    
-                    
-                    
-						</div>
+					
 						
 					</div>
            
+    <hr>
                     
-                    
-                    
-                    
-                    
-                    
-                    
+
                     
                     
                     
@@ -336,7 +335,123 @@
                  
   </form>
     
+<form id = "ordenc" method = "post" action="" role="form" enctype="multipart/data-form" onsubmit="return validarCampos(ordenc)">
+        <div class ="form-horizontal">
 
+                    <div class="historia">
+                        
+                               <h2><span>ACTIVIDADES EN LINEA</span></h2>
+			</div>
+                   <hr>
+                                <div class="historia1">
+							<div class="contenedor-fila2">
+									
+								<div class="contenedor-columna">
+									<?php
+										echo "Nombre";
+									?>
+								</div>	
+								<div class="contenedor-columna">
+									<?php
+										echo "Fecha Inicio";
+									?>
+								</div>
+		
+								<div class="contenedor-columna">
+									<?php
+										echo "Hora Inicio";
+									?>
+								</div>
+								<div class="contenedor-columna">
+									<?php
+										echo "Fecha Fin ";
+									?>
+								</div>
+								<div class="contenedor-columna">
+									<?php
+										echo "Hora Fin";
+									?>
+								</div>
+							</div>  
+							<?php
+								//crear conexion---------------------------
+								$conexion = mysql_connect("localhost","root","","saetis");
+								//Control
+								if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
+								//Seleccion
+								mysql_select_db("saetis",$conexion);
+								//Peticion
+								$peticion = mysql_query("SELECT  r.nombre_r, p.fecha_inicio_pl, p.hora_inicio_pl, p.fecha_fin_pl, p.hora_fin_pl
+                FROM plazo p, registro r, tipo t
+                WHERE t.TIPO_T = r.TIPO_T
+                AND p.ID_R = r.ID_R
+                AND r.TIPO_T =  'documento requerido'
+               ");
+							
+
+								while($fila = mysql_fetch_array($peticion))
+								{
+							?>
+								<div class="contenedor-fila">
+									   <div class="contenedor-columna">
+										<?php
+											echo $fila['nombre_r'];
+										?>
+									</div>
+									
+									<div class="contenedor-columna">
+										<?php
+											echo $fila['fecha_inicio_pl'];
+										?>
+									</div>
+			
+									<div class="contenedor-columna">
+										<?php
+											echo $fila['hora_inicio_pl'];
+										?>
+									</div>
+									
+									<div class="contenedor-columna">
+										<?php
+											echo $fila['fecha_fin_pl'];
+										?>
+									</div>
+									
+									<div class="contenedor-columna">
+										<?php
+											echo $fila['hora_fin_pl'];
+										?>
+									</div>
+                                                                      
+									
+								</div>
+								<?php
+								}
+
+								//Cerrar
+								mysql_close($conexion);
+							
+				
+						?>	
+                                                      </div>	
+					
+						
+					</div>
+           
+    <hr>
+                    
+
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                 
+  </form>
              
     <!--Modal para adjuntar recursos/documentos-->
          

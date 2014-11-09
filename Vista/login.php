@@ -4,6 +4,9 @@ session_start();
 $usuario= $_POST['usuario'];
 $contrasena= $_POST['contrasena'];
 $permiso="administrador";
+$permiso2="asesor";
+$permiso3="grupoEmpresa";
+$estado1="Habilitado";
 //crear conexion---------------------------
 $conexion = mysql_connect("localhost","root","");
 //Control
@@ -11,17 +14,22 @@ if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
 //Seleccion
 mysql_select_db("saetis",$conexion);
 //Peticion
-$peticion = mysql_query("SELECT u.NOMBRE_U, u.PASSWORD_U, r.ROL_R FROM usuario u, usuario_rol r
+$peticion = mysql_query("SELECT u.NOMBRE_U, u.PASSWORD_U, r.ROL_R, u.ESTADO_E FROM usuario u, usuario_rol r
 WHERE u.NOMBRE_U=r.NOMBRE_U");
 
-while($fila = mysql_fetch_array($peticion))
+$peticion1 = mysql_query("SELECT `LOGIN_S`,`PASSWORD_S` FROM `socio`");
+
+
+while(($fila = mysql_fetch_array($peticion)) or ($fila = mysql_fetch_array($peticion1)))
 {
 	
 	$usuariobd=$fila['NOMBRE_U'];
 	$contrasenabd=$fila['PASSWORD_U'];
-        $permisosenbase = $fila['ROL_R'];   
+        $permisosenbase = $fila['ROL_R'];  
+        $estado= $fila['ESTADO_E']; 
 
-	if($usuario == $usuariobd && $contrasena == $contrasenabd && $permiso==$permisosenbase )
+
+	if($usuario == $usuariobd && $contrasena == $contrasenabd && $permiso==$permisosenbase && $estado==$estado1 )
 	{   
 	//Si el resultado es positivo, entonces asignar
 
@@ -45,24 +53,120 @@ while($fila = mysql_fetch_array($peticion))
 
 	}
         else{
+  	if($usuario == $usuariobd && $contrasena == $contrasenabd && $permiso2==$permisosenbase && $estado==$estado1 )
+	{   
+	//Si el resultado es positivo, entonces asignar
+
+		
+		$_SESSION['usuario'] = $usuario;
+		$_SESSION['contrasena'] = $contrasena;
+                $_SESSION['asesor'] = $permisosenbase;
+		
+
+		echo'
+
+		<html>
+			<head>
+				<meta http-equiv="REFRESH" content="0;url=inicio_asesor.php">
+                        
+			</head>
+		</html>
+
+		';
+          
+
+        }  else
+            {
+            	if($usuario == $usuariobd && $contrasena == $contrasenabd && $permiso3==$permisosenbase && $estado==$estado1)
+	{   
+	//Si el resultado es positivo, entonces asignar
+
+		
+		$_SESSION['usuario'] = $usuario;
+		$_SESSION['contrasena'] = $contrasena;
+                $_SESSION['grupoEmpresa'] = $permisosenbase;
+		
+
+		echo'
+
+		<html>
+			<head>
+				<meta http-equiv="REFRESH" content="0;url=inicio_grupo_empresa.php">
+                        
+			</head>
+		</html>
+
+		';
+          
+
+	}
+        else
+            {
+            
+               while($fila = mysql_fetch_array($peticion1))
+{
+		$sociol=$fila['LOGIN_S'];
+	     $sociop=$fila['PASSWORD_S'];
+
+         if($usuario == $sociol && $contrasena == $sociop )
+	{   
+	//Si el resultado es positivo, entonces asignar
+
+		
+		$_SESSION['socio'] = $usuario;
+		$_SESSION['contrasena'] = $contrasena;
+                $_SESSION['socio'] = $permisosenbase;
+		
+
+		echo'
+
+		<html>
+			<head>
+				<meta http-equiv="REFRESH" content="0;url=inicio_grupo_empresa.php">
+                        
+			</head>
+		</html>
+
+		';
+          
+
+	}else{
+                       
             		echo'
 
 		<html>
 			<head>
-				<meta http-equiv="REFRESH" content="1;url=../index2.php">
+				<meta http-equiv="REFRESH" content="0;url=../index.php">
                         
 			</head>
 		</html>
 
 		';
             
-        }
+               }
+                    
+            
+ 
+            
+          }
+
+                   
+            
+      }
+                   
+            
+ 
+            
+   }
+
+
+
+ }
+
 
 
 
 }
-
-
 //Cerramos base de datos
 
 ?>

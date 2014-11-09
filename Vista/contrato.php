@@ -65,8 +65,7 @@
 <body>
 
    
-    <div id="wrapper">
-       
+           
         
 		<!--<h2>design by <a href="#" title="flash templates">flash-templates-today.com</a></h2>-->
         
@@ -170,11 +169,11 @@
                          <li>
                             <a href="#"><i class="fa fa-tasks fa-fw"></i> Tareas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
+                                 <li>
                                     <a href="contrato.php">Emitir Contrato </a>
                                 </li>
                                 <li>
-                                    <a href="ordendecambioempresas.php">Emitir Orden de Cambio</a>
+                                    <a href="ordenDeCambio.php">Emitir Orden de Cambio</a>
                                 </li>
                                 <li>
                                     <a href="notificacion_conformidad.php">Emitir Notificaci&oacute;n de Conformidad</a>
@@ -187,7 +186,7 @@
                                             
                                         </li>
                                         <li>
-                                            <a href="CrearModalidadCalificacion.php">Modalidades de Calificaci&oacute;n</a>
+                                            <a href="#">Modalidades de Calificaci&oacute;n</a>
                                         </li>
                                         <li>
                                             <a id="Seguimiento" href="#">Seguimiento</a>
@@ -195,9 +194,6 @@
   
                                     </ul>
                                     <!-- /.nav-third-level -->
-                                </li>
-                                <li>
-                                            <a href="evaluacionFinal.php"> Evaluar Grupo Empresa </a>   
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -225,7 +221,6 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-
 <!-------------------------------------------NUEVAS PUBLICACIONES------------------------------------------>
 <div id="page-wrapper">
            
@@ -245,7 +240,7 @@
     Grupo Empresa:
     <form method="POST" action="emtirContrato.php" enctype="Multipart/form-data">
         <select name="grupoempresa" class="form-control">
-            <option>Seleccione una grupo </option>
+            <option>Seleccione una grupo empresa</option>
             <?php
                 $idAsesor='leticia';
                 $c1="SELECT ge.`NOMBRE_LARGO_GE` FROM `inscripcion` AS i,`asesor` AS a,`grupo_empresa` AS `ge`,`gestion` AS g,`proyecto` AS p WHERE i.`NOMBRE_UA` = a.`NOMBRE_U` AND i.`NOMBRE_UGE` = ge.`NOMBRE_U` AND i.`ID_G` = g.`ID_G` AND i.`CODIGO_P` = p.`CODIGO_P` AND a.`NOMBRE_U` LIKE '$idAsesor'";
@@ -259,7 +254,7 @@
                 ?>
         </select><br>
          <div class   ="col-sm-8">
-             <input class ="btn btn-primary" type="submit" value= "Generar PDF" id= "Generar PDF" name="Generar PDF" onclick ="this.form.action='../Controlador/emitirContrato.php?id=0'"></input> &nbsp;&nbsp;              
+             <input class ="btn btn-primary" type="submit" value= "Generar" id= "Generar PDF" name="Generar PDF" onclick ="this.form.action='../Controlador/emitirContrato.php?id=0'"></input> &nbsp;&nbsp;              
         </div>
     </form>
     </div>

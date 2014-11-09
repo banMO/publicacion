@@ -143,7 +143,7 @@ session_start();
 				<div class="content_resize">
 					<div class="mainbar">
                                             <div class="article"><br><br>
-							<h2><span>Actividades</span></h2>	
+							<h2><span>Bitacora de Ingreso</span></h2>	
 							
 						</div>
                                             
@@ -288,6 +288,9 @@ session_start();
                                  <li>
                                      <a href="add_roles.php">Añadir  Roles</a>
                                 </li>
+                                <li>
+                                     <a href="add_gestion.php">Añadir  Gestion</a>
+                                </li>                                
                                  <li>
                                     <a href="lista_roles.php">Asignar Permisos Roles</a>
                                 </li>

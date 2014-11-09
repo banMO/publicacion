@@ -10,8 +10,6 @@ include("controlSesion.php");
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-
     <!-- JQuery -->
     <script type="text/javascript" src="../Librerias/lib/jquery-2.1.0.min.js"></script>
     <!-- icheck -->
@@ -185,6 +183,9 @@ include("controlSesion.php");
                                 </li>
                                  <li>
                                      <a href="add_roles.php">Añadir  Roles</a>
+                                </li>
+                                <li>
+                                     <a href="add_gestion.php">Añadir  Gestion</a>
                                 </li>
                                  <li>
                                     <a href="lista_roles.php">Asignar Permisos Roles</a>

@@ -73,7 +73,7 @@ include '../Modelo/conexion.php';
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="../index.php">Inicio </a>
+                <a class="navbar-brand" href="inicio_grupo_empresa.php">Inicio </a>
             </div>
             <!-- /.navbar-header -->
 
@@ -106,7 +106,7 @@ include '../Modelo/conexion.php';
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="unlog.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -193,11 +193,8 @@ include '../Modelo/conexion.php';
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#">Recepci&oacute;n Documentos <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        
-                                       
-                                    </ul>
+                                    <a href="publicacion_grupo.php">Recepci&oacute;n Documentos </a>
+                                    
                                 </li>
                                
                             </ul>
@@ -221,6 +218,9 @@ include '../Modelo/conexion.php';
                                 <li>
                                     <a href="seleccionar_asesor.php">Seleccionar Asesor</a>
                                 </li>
+                                 <li>
+                                     <a href="AnadirSocio.php">Añadir socios</a>
+                                </li>
                                 
                             </ul>
                             <!-- /.nav-second-level -->
@@ -228,7 +228,14 @@ include '../Modelo/conexion.php';
                         
                         <li>
                             <a href="#"><i class="fa fa-warning fa-fw"></i> Notificaciones</a>
-                        </li>
+                        
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="historia_actividades.php">Historia de actividades</a>
+                                </li>
+                                
+                            </ul>  
+                            </li>
                         <li>
                             <a href="#"><i class="fa fa-building-o fa-fw"></i> Actividades<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -276,39 +283,7 @@ include '../Modelo/conexion.php';
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-8 -->
-                <div class="col-lg-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Panel de Notificaciones
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i> Notificacion 1
-                                    <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i> Notificacion 2
-                                    <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i> Notificacion 3
-                                    <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                                    </span>
-                                </a>
-                                
-                                
-                            </div>
-                            <!-- /.list-group -->
-                            <a href="#" class="btn btn-default btn-block">Ver Todas las Alertas</a>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                </div>
+                
                 
                 
              
@@ -554,28 +529,19 @@ include '../Modelo/conexion.php';
                                 <li>
                                     <a href="seleccionar_asesor.php">Seleccionar Asesor</a>
                                 </li>
-    
+
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         
                         <li>
-                            <a href="#"><i class="fa fa-warning fa-fw"></i> Notificaaaazzzasciones</a>
-                                 <ul class="nav nav-second-level">       
-                                 <li>
-                                    <a href="seleccionar_asesor.php">Seleccionar Asesor</a>
-                                </li>
-                               </ul>
+                            <a href="#"><i class="fa fa-warning fa-fw"></i> Notificaciones</a>
+                          
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-building-o fa-fw"></i> Actividades<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a id="registrarPlanificacion" href="#">
-                                        <i class="fa fa-pencil-square-o fa-fw"></i>Registrar Planificaci&oacute;n
-                                    </a>
-                                </li>
-                            </ul>
+
                             <!-- /.nav-second-level -->
                         </li>
                         

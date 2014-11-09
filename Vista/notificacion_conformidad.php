@@ -48,9 +48,8 @@ $resultado = $clas->consulta("SELECT ge.`NOMBRE_LARGO_GE` FROM `asesor` AS a,`gr
     
     
     <script type="text/javascript" src="../Librerias/js/calendario_notacion_conformidad.js"></script>
-    <script type="text/javascript" src="../Librerias/js/validar_notificacion.js"></script>
-   
     
+        <script type="text/javascript" src="../Librerias/js/validar_notificacion.js"></script>
     
 
 </head>
@@ -58,11 +57,12 @@ $resultado = $clas->consulta("SELECT ge.`NOMBRE_LARGO_GE` FROM `asesor` AS a,`gr
 <body>
 
    
-    <div id="wrapper">
-       
+           
         
 		<!--<h2>design by <a href="#" title="flash templates">flash-templates-today.com</a></h2>-->
-      <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+        
+	
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -161,8 +161,11 @@ $resultado = $clas->consulta("SELECT ge.`NOMBRE_LARGO_GE` FROM `asesor` AS a,`gr
                          <li>
                             <a href="#"><i class="fa fa-tasks fa-fw"></i> Tareas<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
+                                 <li>
+                                    <a href="contrato.php">Emitir Contrato </a>
+                                </li>
                                 <li>
-                                    <a href="ordendecambioempresas.php">Emitir Orden de Cambio</a>
+                                    <a href="ordenDeCambio.php">Emitir Orden de Cambio</a>
                                 </li>
                                 <li>
                                     <a href="notificacion_conformidad.php">Emitir Notificaci&oacute;n de Conformidad</a>
@@ -178,7 +181,7 @@ $resultado = $clas->consulta("SELECT ge.`NOMBRE_LARGO_GE` FROM `asesor` AS a,`gr
                                             <a href="#">Modalidades de Calificaci&oacute;n</a>
                                         </li>
                                         <li>
-                                            <a id="Seguimiento" href="../Vista/inicio_asesor.php">Seguimiento</a>
+                                            <a id="Seguimiento" href="#">Seguimiento</a>
                                         </li>
   
                                     </ul>
@@ -212,13 +215,14 @@ $resultado = $clas->consulta("SELECT ge.`NOMBRE_LARGO_GE` FROM `asesor` AS a,`gr
 
         
 	<!----------------------------------------------------------------------------------------------->
- <div id="page-wrapper">
+ 
+        <div id="page-wrapper">
            
-<form id = "ordenc" method = "post" action="" role="form" enctype="multipart/data-form" onsubmit="return validarCampos(ordenc)">
+        <form id = "notificacionc" method = "post" action="" role="form" enctype="multipart/data-form" onsubmit="return validarCampos(notificacionc)">
         <div class ="form-horizontal">
                 <div class="row">
               <div class="col-lg-12">
-                <h1> Emitir Notificacion de Conformidad <small></small></h1>
+                <h1> Notificacion de conformidad <small></small></h1>
                  
                 </div>
             </div><!-- /.row -->
@@ -226,21 +230,22 @@ $resultado = $clas->consulta("SELECT ge.`NOMBRE_LARGO_GE` FROM `asesor` AS a,`gr
                 <!--Descripcion de la publicacion-->                 
                
                     
-                      <div class="form-group">
+                      <div class="form-group" >
                       <label class="col-sm-2 control-label">Grupo Empresa</label>
-                        <div class="col-xs-4">
+                        <div class="col-xs-4"> 
                           <select name="lista" class="form-control">
-                            <option>Seleccione una grupo empresa</option>
+                            <option selected value="0">Seleccione una grupo empresa </option>
                             <?php
                                 $idAsesor='leticia';
                                 $c1="SELECT ge.`NOMBRE_LARGO_GE` FROM `inscripcion` AS i,`asesor` AS a,`grupo_empresa` AS `ge`,`gestion` AS g,`proyecto` AS p WHERE i.`NOMBRE_UA` = a.`NOMBRE_U` AND i.`NOMBRE_UGE` = ge.`NOMBRE_U` AND i.`ID_G` = g.`ID_G` AND i.`CODIGO_P` = p.`CODIGO_P` AND a.`NOMBRE_U` LIKE '$idAsesor'";
                                 $a1=$con->consulta($c1);
-
-                                while($v1 =  mysql_fetch_array($a1)){
-                                    echo "<option>".$v1[0]."</option>";
+                                
+                                while($grupoE =  mysql_fetch_array($a1)){
+                                    echo "<option>".$grupoE[0]."</option>";
                                 }
                                 echo "<input type='hidden' name='idAsesor' value='$idAsesor'>";           
                             ?>
+                            
                             </select>
                         </div>
                       </div><!--end/grupoempresas-->
@@ -351,19 +356,20 @@ $resultado = $clas->consulta("SELECT ge.`NOMBRE_LARGO_GE` FROM `asesor` AS a,`gr
                     </div><!--end/lugar-->
 
 
-
                     <div class   ="form-group">
                        <div class   ="col-sm-8">
                       <input class ="btn btn-primary" type="submit" value= "Generar" id= "enviar" name="enviar" onclick ="this.form.action='../Controlador/emitirNotificacionConf.php?id=0'"></input> &nbsp;&nbsp;
-                       </div>
+
+                      
+                      </div>
                     </div><!--end/submit-->
 
                    
                  </div> 
 
     </form>
-    
-
+        
+        
              
     <!--Modal para adjuntar recursos/documentos-->
          
