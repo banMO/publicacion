@@ -265,7 +265,7 @@
                                                             echo '<div class="form-group">';
                                                                 echo '<select class="form-control" name="CritEscogidos[]" required>';
                                                                 echo '<option value="">Seleccione un Tipo de Calificacion</option>';
-                                                                    echo '<option value="4">Puntaje</option>';
+                                                                    
 
                                                     while ($v3 = mysql_fetch_row($CriteriosCalificacion)) {
 

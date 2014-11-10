@@ -284,18 +284,21 @@
 
 
 include('config.php');
+error_reporting(E_ALL ^ E_NOTICE);
 // Mensaje con campos vacios
 if (!empty($_POST) AND (empty($_POST['titulo']) OR empty($_POST['texto']))) {
     echo "<font color=\"#ff0000\">Por Favor llene los campos vacios</font>";
 } else {
-     if (empty($_GET['titulo'])) { $titulo="";} else { $titulo=$_GET['titulo'];}
+if (isset($_POST['titulo'])) {
+          $titulo = $_POST["titulo"];
+        }
 
-       //$autor = $_POST["autor"];
-       
+
+      
           //$texto = $_POST["texto"];
-       if (empty($_GET['texto'])) { $texto="";} else { $texto=$_GET['texto'];}
-//$titulo = $_POST["titulo"];
-//$texto = $_POST["texto"];
+       if (isset($_POST['texto'])) {
+        $texto = $_POST['texto'];
+       }
 if($titulo == "" && $texto == ""){} else {
 // Adiciona a Noticia 
 $news_add = "INSERT INTO noticias (NOMBRE_U,TITULO, FECHA_N, VIEWS, TEXTO) VALUES ('leticia','".addslashes(mysql_real_escape_string($_POST["titulo"]))."', NOW(), '0', '".addslashes(mysql_real_escape_string($_POST['texto']))."')";
@@ -305,8 +308,8 @@ or die ("Error.");
 echo "Tema Adicionado";
 
 }
-}
 
+}
 ?>
 
 <form name="input" action="adicionar-noticia.php" method="post">

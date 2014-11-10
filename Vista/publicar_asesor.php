@@ -229,7 +229,7 @@
 <!-------------------------------------------NUEVAS PUBLICACIONES------------------------------------------>
 <div id="page-wrapper">
            
-    <form id = "publicar" method = "POST" action="../Controlador/publicar.php" onsubmit = "return validarCampos(this);">
+   <form id = "publicar" method = "POST" action="tablas-publicar.php" onsubmit = "return validarCampos(this);">
         <div class ="form-horizontal">
             <div class="row">
                     <div class="col-lg-12">
@@ -294,18 +294,18 @@
 
 
                       <div class="form-group">
-                       <label class="col-sm-2 control-label" name="fecha1">Fecha de publicacion:</label>
+                       <label class="col-sm-2 control-label" >Fecha de publicacion:</label>
                         <div class="col-xs-8">
                               
-                                <input class="form-control" type="date">
+                                <input class="form-control" type="date" name="fecha1">
                             </div>
                         </div>
                             
  
  <div class="form-group">
-                        <label class="col-sm-2 control-label" name="hora1">Hora de publicacion:</label>
+                        <label class="col-sm-2 control-label" >Hora de publicacion:</label>
                         <div class="col-sm-8" >
-                        <input class="form-control" type="time">
+                        <input class="form-control" name="hora1" type="time">
                     </div>
       
                     </div><!--end/fecha-->
@@ -327,7 +327,7 @@
                         </div>
                            
                               
-    </form>
+    </form> 
     <!--Modal para adjuntar recursos/documentos-->
                          
                         <div style="display: none;" aria-hidden="true" class="modal fade" id="myModal">

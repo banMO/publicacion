@@ -2,7 +2,7 @@
 <?php
 include '../Modelo/conexion.php';
 session_start();
-  include("controlSesion.php");
+include("controlSesion.php");
 ?>
 <html>
 
@@ -509,11 +509,7 @@ include '../Modelo/conexion.php';
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#">Recepci&oacute;n Documentos <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        
-                                       
-                                    </ul>
+                                  <a href="publicacion_grupo.php">Recepci&oacute;n Documentos </a>
                                 </li>
                                
                             </ul>

@@ -163,29 +163,22 @@
                         
                          
 
-                            <fieldset class="campos-border">
                              
                             <table class="table form-group" >
                                  
                                                      <tr>
                                                           
-                                                          <th>Nombre<th>
-                                                          <th>Descripcion</th>   
+                                                          <th >Nombre<th>
+                                                          <th >Descripcion</th>   
                                                      </tr> 
 
 
                                 <?php
 
-                     session_start();
-                     if (isset($_SESSION['nombre_usr'])) { $idGrupo=$_POST['NOMBRE_U'];}
-
-
-                                
-                                 echo $idGrupo;
                                
-                                        $c_3="SELECT DISTINCT `NOMBRE_R`,`RUTA_D`,`DESCRIPCION_D`,`fecha_p`,`hora_p` FROM `registro` AS r,`documento` AS d,`descripcion` AS e,`periodo` AS p WHERE r.`ID_R` = d.`ID_R` AND r.`ID_R` = e.`ID_R` AND r.`ID_R` = p.`ID_R` AND r.`TIPO_T` LIKE 'publicaciones' AND r.`NOMBRE_U` LIKE 'leticia'";
+                                        $c_3="SELECT DISTINCT `NOMBRE_R`,`RUTA_D`,`DESCRIPCION_D`,`fecha_p` ,`hora_p` FROM `registro` AS r,`documento` AS d,`descripcion` AS e,`periodo` AS p WHERE r.`ID_R` = d.`ID_R` AND r.`ID_R` = e.`ID_R` AND r.`ID_R` = p.`ID_R` AND r.`TIPO_T` LIKE 'publicaciones' AND r.`NOMBRE_U` LIKE 'Leticia'";
                                         $r3=$con->consulta($c_3);
-                                       // var_dump($c_3);
+                                     //var_dump($r3);
                                        
                                                 
                                   
@@ -225,32 +218,42 @@
                                            // $com=$r5."/".$r6."/".$r7;
                                             $size=strlen($ubi);
                                             $com=substr($ubi, $ini,$size);
-                                            $fep=$var3[4];
-                                           // $hop=$var3[5];
+                                            $fep=$var3[3];
+                                           $hop=$var3[4];
+                                          // echo $fep."fecha";
+                                          // echo $hop."</br>";
                                             $fecha       = date('Y-m-d');
+                                           // echo $fecha."</br>";
                                             $hora        =  date("G:H:i");
-                                           if($fecha>$fep)
-                                             {     // if()
-
-                   ?>
-                                        
-                                          
-                                                     <tr> 
+                                            //echo $hora."   es la hora a";
+                                           if($fecha >= $fep )
+                                            {      if($hora >= $hop || $hora <= $hop){
+                                                
+                                                ?>
+                                                      <tr> 
                                                           <td><a class="link-dos" href="../<?php echo $com ?>"><?php echo $var3[0]?></a><td>
 
                                                           <td><?php echo $des?></td>   
                                                      </tr>
+                                               <?php 
+                                            }
+
+                   ?>
+                                        
+                                          
+                                                     
                                                      
 
                                             <?php
                                        }
-                                       else{}
+                                      else{}
                                        
-                                           }
+                                          }
+                                    
                                      }
                                        ?>
                                        </table>
-                                       </fieldset>
+                                      
                                        <?php
                                             //echo "</form>";
                                     //$tabla.="</table>";

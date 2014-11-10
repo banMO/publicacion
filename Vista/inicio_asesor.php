@@ -1,5 +1,5 @@
  <?php  
- session_start();
+session_start();
  $UsuarioActivo = $_SESSION['usuario'];
  ?> 
   <!DOCTYPE html>

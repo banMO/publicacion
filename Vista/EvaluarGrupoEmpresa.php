@@ -300,14 +300,17 @@
                                 /**************************************************/
 
 
-                               /*for ($j=0; $j < count($IdCritC) ; $j++) { 
+                               for ($j=0; $j < count($IdCritC) ; $j++) { 
                                     
                                     $SeleccionTipoE = $conect->consulta('SELECT TIPO_CRITERIO FROM criteriocalificacion WHERE ID_CRITERIO_C ='.$IdCritC[$j][0].'');
 
                                     $TipoC[] = mysql_fetch_row($SeleccionTipoE);
-                                }*/
+                                }
 
                                 /*************************************************************/
+                                 //$SeleccionTipoE = $conect->consulta('SELECT TIPO_CRITERIO FROM criteriocalificacion WHERE ID_CRITERIO_C ='.$IdCritC[$i][0].'');
+
+                                 //$TipoC[] = mysql_fetch_row($SeleccionTipoE);
 
                                     for ($i=0; $i < count($NomCE) ; $i++) { 
 
@@ -320,7 +323,7 @@
                                                     echo '</div>';
 
 
-                                                if ($IdCritC[$i][0] == 4) {
+                                                if ($TipoC[$i][0] == 4) {
 
                                                         echo'<div class="form-group">';
                                                             echo'<input type="text" name="valorInput[]" pattern="^[0-9]{1,3}" required>';
@@ -331,14 +334,6 @@
                                                 else
                                                 {      
 
-
-                                                     
-                                    
-                                                    $SeleccionTipoE = $conect->consulta('SELECT TIPO_CRITERIO FROM criteriocalificacion WHERE ID_CRITERIO_C ='.$IdCritC[$i][0].'');
-
-                                                    $TipoC[] = mysql_fetch_row($SeleccionTipoE);
-                                                    
-                      
                                                     /*******************************************************************/
                                                     
                                                     $indicadores = $conect->consulta('SELECT NOMBRE_INDICADOR FROM indicador WHERE ID_CRITERIO_C = '.$IdCritC[$i][0].'');
