@@ -318,7 +318,7 @@
                                                       </div>	
 					
 						
-					</div>
+					
            
     <hr>
                     
@@ -332,15 +332,11 @@
                     
                     
                     
-                 
-  </form>
-    
-<form id = "ordenc" method = "post" action="" role="form" enctype="multipart/data-form" onsubmit="return validarCampos(ordenc)">
         <div class ="form-horizontal">
 
                     <div class="historia">
                         
-                               <h2><span>ACTIVIDADES EN LINEA</span></h2>
+                               <h2><span>HISTORIAL DE DOCUMENTOS</span></h2>
 			</div>
                    <hr>
                                 <div class="historia1">
@@ -348,28 +344,28 @@
 									
 								<div class="contenedor-columna">
 									<?php
-										echo "Nombre";
+										echo "ID ";
 									?>
 								</div>	
 								<div class="contenedor-columna">
 									<?php
-										echo "Fecha Inicio";
+										echo "Asesor";
 									?>
 								</div>
 		
 								<div class="contenedor-columna">
 									<?php
-										echo "Hora Inicio";
+										echo "Descripcion";
 									?>
 								</div>
 								<div class="contenedor-columna">
 									<?php
-										echo "Fecha Fin ";
+										echo "Fecha ";
 									?>
 								</div>
 								<div class="contenedor-columna">
 									<?php
-										echo "Hora Fin";
+										echo "Hora";
 									?>
 								</div>
 							</div>  
@@ -381,11 +377,7 @@
 								//Seleccion
 								mysql_select_db("saetis",$conexion);
 								//Peticion
-								$peticion = mysql_query("SELECT  r.nombre_r, p.fecha_inicio_pl, p.hora_inicio_pl, p.fecha_fin_pl, p.hora_fin_pl
-                FROM plazo p, registro r, tipo t
-                WHERE t.TIPO_T = r.TIPO_T
-                AND p.ID_R = r.ID_R
-                AND r.TIPO_T =  'documento requerido'
+								$peticion = mysql_query("SELECT `ID_R`,`NOMBRE_U`,`NOMBRE_R`,`FECHA_R`,`HORA_R` FROM `registro` WHERE `TIPO_T`='publicaciones' and `NOMBRE_U`='leticia'
                ");
 							
 
@@ -395,31 +387,31 @@
 								<div class="contenedor-fila">
 									   <div class="contenedor-columna">
 										<?php
-											echo $fila['nombre_r'];
+											echo $fila['ID_R'];
 										?>
 									</div>
 									
 									<div class="contenedor-columna">
 										<?php
-											echo $fila['fecha_inicio_pl'];
+											echo $fila['NOMBRE_U'];
 										?>
 									</div>
 			
 									<div class="contenedor-columna">
 										<?php
-											echo $fila['hora_inicio_pl'];
+											echo $fila['NOMBRE_R'];
 										?>
 									</div>
 									
 									<div class="contenedor-columna">
 										<?php
-											echo $fila['fecha_fin_pl'];
+											echo $fila['FECHA_R'];
 										?>
 									</div>
 									
 									<div class="contenedor-columna">
 										<?php
-											echo $fila['hora_fin_pl'];
+											echo $fila['HORA_R'];
 										?>
 									</div>
                                                                       

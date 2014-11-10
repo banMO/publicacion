@@ -1,4 +1,8 @@
   <!DOCTYPE html>
+<?php 
+session_start();
+  include("controlSesion.php");
+  ?>
 <html>
 
 <head>
