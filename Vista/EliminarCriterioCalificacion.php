@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<?php
+<?php  
+    session_start();    
 
-    include '../Modelo/conexion.php';
-   
-    $con=new conexion();
-    
+    $UsuarioActivo = $_SESSION['usuario'];
 ?>
+
+<!DOCTYPE html>
 <html>
-
 <head>
-
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -29,23 +27,43 @@
     <!-- SB Admin CSS - Include with every page -->
     <link href="../Librerias/css/sb-admin.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../Librerias/css/jquery-te-1.4.0.css">
-    <script type="../Librerias/js/jquery.min.js"></script>
+    <link href="../Librerias/css/bootstrap-dialog.css" rel="stylesheet">
+    
     <script src="../Librerias/js/jquery-1.10.2.js"></script>
     
-      <link rel="stylesheet" type="text/css" media="all" href="../Librerias/calendario/daterangepicker-bs3.css" />
-      <script type="text/javascript" src="../Librerias/calendario/moment.js"></script>
-      <script type="text/javascript" src="../Librerias/calendario/daterangepicker.js"></script>
-      <link rel="stylesheet" type="text/css" href="../Librerias/calendario2/jquery.datetimepicker.css"/>
-      <script type="text/javascript" src="../Librerias/js/calendario_notacion_conformidad.js"></script>
-      
-    <script type="text/javascript" src="../Librerias/calendario2/jquery.js"></script>
-    <script type="text/javascript" src="../Librerias/calendario2/jquery.datetimepicker.js"></script>
     <script type="text/javascript" src="../Librerias/js/validar_orden.js"></script>
     <script type="text/javascript" src="../Librerias/js/masked_input.js"></script>
-    
-    
-    
+    <script src="../Librerias/js/jquery-2.1.0.min.js"></script> 
+    <script src="../Librerias/js/bootstrap-dialog.js"></script>
+    <script>
+        $(document).ready(function(){
 
+            $('#btn-aceptar').on('click', function(){
+
+                if($("form")[0].checkValidity()) 
+                {
+                    var url = "ProcesarEliminarCriterioCalificacion.php"
+
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: $('#HabilitarFormulario').serialize(),
+
+                        success: function(data){
+
+                        $('#panelResultado').html(data)
+
+                        }
+
+                    });
+
+                    return false;
+
+                } 
+            });
+        });
+        
+    </script>
 </head>
 
 <body>
@@ -54,10 +72,8 @@
     <div id="wrapper">
        
         
-        <!--<h2>design by <a href="#" title="flash templates">flash-templates-today.com</a></h2>-->
+    <!--<h2>design by <a href="#" title="flash templates">flash-templates-today.com</a></h2>-->
         
-        
-     
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -126,7 +142,7 @@
                                         
                                         
                                         <li>
-                                            <a href="publicar_asesor.php">Nueva Publicaci&oacute;n </a>
+                                            <a href="../Vista/publicar_asesor.php">Nueva Publicaci&oacute;n </a>
                                         </li>
                                         <li>
                                             <a href="../Controlador/publicaciones.php">Publicaciones </a>
@@ -166,11 +182,9 @@
                                 <li>
                                     <a href="#">Seguimiento Grupo Empresa <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
-                                        
                                         <li>
                                             <a id="Seguimiento" href="../Vista/inicio_asesor.php">Seguimiento</a>
                                         </li>
-  
                                     </ul>
                                     <!-- /.nav-third-level -->
                                 </li>
@@ -205,7 +219,7 @@
                         </li>
                         
                         <li>
-                            <a href="lista-de-noticias.php"><i class="fa fa-comment"></i> Foro</a>
+                            <a href="#"><i class="fa fa-warning fa-fw"></i> Notificaciones</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-building-o fa-fw"></i> Actividades<span class="fa arrow"></span></a>
@@ -229,134 +243,72 @@
 <!-------------------------------------------NUEVAS PUBLICACIONES------------------------------------------>
 <div id="page-wrapper">
            
-    <form id = "publicar" method = "POST" action="../Controlador/publicar.php" onsubmit = "return validarCampos(this);">
+<!--form id = "ordenc" method = "post" action="" role="form" enctype="multipart/data-form" onsubmit="return validarCampos(ordenc)"-->
         <div class ="form-horizontal">
             <div class="row">
-                    <div class="col-lg-12">
-                          <h2> Publicar Recursos</h2>
-                 
-                   </div>
-            </div><!-- /.row -->
-               
-                <!--Descripcion de la publicacion-->                 
-                <fieldset class="campos-border">
-                  <legend class="campos-border">Informaci&oacute;n</legend>
+                <div class="col-lg-12">
+                    <h2 class="page-header">Eliminar Criterio de Calificacion</h2>
+                        <div class="col-lg-6">
+                            <form method = "post" id="HabilitarFormulario">   
+            	     
+                                    <?php 
+                                    
+                                        include '../Modelo/conexion.php';
+					                    
+                                        $conect = new conexion();
 
-
-
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Destinatario</label>
-                           <div class="col-lg-8 ">
-                    
-                                <form method="POST" action="#" enctype="Multipart/form-data" action="forms/actions/configurarFechaRecepcionCO.php">
-                                    <select name="grupoempresa" class="form-control" >
-                                        <option>Seleccione un destinatario</option>
-                                        <?php
-                                            $idAsesor='leticia';
+					                    $SeleccionarCriterios = $conect->consulta("SELECT NOMBRE_CRITERIO_C FROM criteriocalificacion WHERE NOMBRE_U = '$UsuarioActivo'");
+                                        
+                                        
+                                        while ($row = mysql_fetch_row($SeleccionarCriterios)) {
                                             
-                                            $c1="SELECT ge.`NOMBRE_LARGO_GE` FROM `inscripcion` AS i,`asesor` AS a,`grupo_empresa` AS `ge`,`gestion` AS g,`proyecto` AS p WHERE i.`NOMBRE_UA` = a.`NOMBRE_U` AND i.`NOMBRE_UGE` = ge.`NOMBRE_U` AND i.`ID_G` = g.`ID_G` AND i.`CODIGO_P` = p.`CODIGO_P` AND a.`NOMBRE_U` LIKE '$idAsesor'";
-                                            $a1=$con->consulta($c1);
-                                            echo "<option>TODOS</option>";
-                                            while($v1 =  mysql_fetch_array($a1)){
-                                                echo "<option>".$v1[0]."</option>";
-                                            }
-                                            echo "<input type='hidden' name='idAsesor' value='$idAsesor'>";
-                                        ?>
-                                    </select><br>
+                                            $seleccionarCrit[] = $row; 
+
+                                        }
+
+                                        if(isset($seleccionarCrit) and is_array($seleccionarCrit)){
+
+                                            echo '<div class="form-group">
+                                                  <label for=""><h4>Seleccione un criterio de calificacion:</h4></label>
+                                                  <select name="CriterioEliminar" id="SeleccionarFormulario" class="form-control" required>
+                                                    <option value="">Seleccione un criterio de calificacion</option>'; 
+
+                                                    for ($i=0; $i <count($seleccionarCrit) ; $i++){
+
+                                                        echo '<option value='.$seleccionarCrit[$i][0].'>'.$seleccionarCrit[$i][0].'</option>'; 
+                                                    }
+
+                                                echo '</select>';
+                                                echo '</div>';
+
+                                                echo '<div class="form-group">
+                                                        <button type="submit" class="btn btn-primary btn-sm" id="btn-aceptar">Eliminar</button>
+                                                      </div>';
                                     
-                                </form>
-                            </div>
-                        
-                    </div>
-               
-  
+                                        }
+                                        else
 
-                    
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label">Titulo</label>
-                             <div class="col-xs-8">
-                                  <input id= "campoTitulo" type="text" name= "campoTitulo"  class="form-control"  data-toggle="tooltip" data-placement="right" title="T&iacute;tulo con el que se mostrar&aacute; el recurso">
+                                        {
+                                            echo "No tienen ningun criterio...vaya al siguiente link para crear uno";
 
-                            </div>
-                   </div>
-
-                 
-
-                   
-                  
-                      <!--Campo de descripcion-->
-                      <div class="form-group">
-                            <label class="col-sm-2 control-label">Descripcion</label>
-                                <div class="col-sm-8">
-                                     <textarea class="jqte-test" name="campoDescripcion" id="campoDescripcion" rows="4" style="overflow: auto;"></textarea>
-                                </div>
-                      </div>
+                                            echo '<a href="http://localhost/saetis/Vista/CrearModalidadCalificacion.php" class="btn btn-default btn-xs">Crear Criterio de Calificacion</a>';
+                                  
 
 
-                      <div class="form-group">
-                       <label class="col-sm-2 control-label" name="fecha1">Fecha de publicacion:</label>
-                        <div class="col-xs-8">
-                              
-                                <input class="form-control" type="date">
-                            </div>
-                        </div>
-                            
- 
- <div class="form-group">
-                        <label class="col-sm-2 control-label" name="hora1">Hora de publicacion:</label>
-                        <div class="col-sm-8" >
-                        <input class="form-control" type="time">
-                    </div>
-      
-                    </div><!--end/fecha-->
-                        
+                                        }
+
+                                          
+                                    ?>
                                  
+                            </form>                                                
 
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Adjuntar Recurso</label>
-                        <div class="col-sm-8">
-                        
-                              <input id= "recurso" type="text" name= "recurso"  class="form-control"   data-toggle="tooltip" data-placement="right" title="Adjuntar un recurso" readonly="readonly">
-                                 </textarea>
-                        <br>
-                        <a data-toggle="modal" class="link-dos" href="javascript:void('')" data-target="#myModal"><span class="glyphicon glyphicon-folder-open"></span>
-                        Adjuntar</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input class="btn-primary" type="submit" value= "Publicar" id= "publicar"name="enviar" onClick()="update()"  >      </input> 
-
-                       </div>
-                        </div>
-                           
-                              
-    </form>
-    <!--Modal para adjuntar recursos/documentos-->
-                         
-                        <div style="display: none;" aria-hidden="true" class="modal fade" id="myModal">
-                        <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Buscador</h4>
-                        </div>
-                        <div class="modal-body" style="padding:0px; margin:0px; width: 560px;">
-                        <iframe src="../Librerias/filemanager/dialogo.php?type=2&amp;field_id=recurso" style="overflow: scroll; overflow-x: hidden; overflow-y: scroll; " frameborder="0" height="500" width="896"></iframe>
-                        </div>
-                        </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-     
-                   <div class="form-group">
-                        <div class="col-sm-8">
-                         <button class="btn-primary" onclick="location='../Controlador/publicaciones.php'">Salir</button>
-                    </div>
+                            <div id="panelResultado">
                                 
-                               
-                
-                <!-- /.col-lg-12 -->
-             
-            <!-- /.row -->
-         
-</div>
-   <script src="../Librerias/js/bootstrap.min.js"></script>
+                            </div>        
+                        </div><!--Col-lg-6-->
+                </div><!--col-lg-12-->
+            </div><!-- /.row -->                   
+    <script src="../Librerias/js/bootstrap.min.js"></script>
     <script src="../Librerias/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 
 
@@ -366,87 +318,9 @@
     <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
     <script src="../Librerias/js/demo/dashboard-demo.js"></script>
     <!-- Combo Box scripts -->
-                                    
-    <!-- /#wrapper -->
 
-    <!--Comprobar campos-->
-<script type="text/javascript">
-
-   function validarCampos(formulario) {
-        var permitidos = /^[0-9a-zA-Z\s/]+$/
-        
-        //Controlar campos vacios y caracteres invalidos
-        if(formulario.campoTitulo.value.length==0) {  
-            formulario.campoTitulo.focus();    
-            alert('Por favor, ingresa un titulo');  
-        return false;  
-        }
-        if(!formulario.campoTitulo.value.match(permitidos)) {
-            
-        alert('Caracteres no validos:_a,¿?()*,"" ');
-        return false;
-        }
-
-        if(formulario.campoDescripcion.value.length >= 200) {
-            formulario.campoDescripcion.focus();
-            alert('Descripcion demasiado larga(max 200 caracteres)')
-        return false;
-        }
-        if(formulario.campoDescripcion.value.length==0){
-            formulario.campoDescripcion.focus();
-            alert('Por favor, ingrese una descripcion');
-        return false;
-        }
-        if(formulario.recurso.value.length==0){
-            formulario.recurso.focus();
-            alert('Por favor, ingrese un documento');
-        return false;
-        }
-
-
-        return true; 
     
-    }
-
-    </script>
-
-
-    <!-- Core Scripts - Include with every page -->
-  <script type="text/javascript" src="../Librerias/calendario2/jquery.js"></script>
-    <script type="text/javascript" src="../Librerias/calendario2/jquery.datetimepicker.js"></script>
-    <script src="../Librerias/js/bootstrap.min.js"></script>
-    <script src="../Librerias/js/plugins/metisMenu/jquery.metisMenu.js"></script>
  
-
-   <script src="../Librerias/js/jquery-1.10.2.js"></script>
-    <script src="../Librerias/js/bootstrap.min.js"></script>
-    <script src="../Librerias/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-    <!-- Page-Level Plugin Scripts - Dashboard -->
-    <script src="../Librerias/js/plugins/morris/raphael-2.1.0.min.js"></script>
-    <script src="../Librerias/js/plugins/morris/morris.js"></script>
-
-    <!-- SB Admin Scripts - Include with every page -->
-    <script src="../Librerias/js/sb-admin.js"></script>
-    <script src="../Librerias/js/jquery-te-1.4.0.min.js"></script>
-
-    <!-- Page-Level Demo Scripts - Dashboard - Use for reference -->
-    <script src="../Librerias/js/demo/dashboard-demo.js"></script>
-    <!-- Combo Box scripts -->
-  
- 
-    <script>
-  $('.jqte-test').jqte();
-  
-  // settings of status
-  var jqteStatus = true;
-  $(".status").click(function()
-  {
-    jqteStatus = jqteStatus ? false : true;
-    $('.jqte-test').jqte({"status" : jqteStatus})
-  });
-</script>
-
 </body>
 
 </html>

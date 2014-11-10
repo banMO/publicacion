@@ -67,12 +67,9 @@
 
 
             $conect->consulta("INSERT INTO usuario(NOMBRE_U, ESTADO_E, PASSWORD_U, TELEFONO_U, CORREO_ELECTRONICO_U) VALUES('$name','Deshabilitado','$password','$telefonoUsuario','$emailUsuario')"); 
-//             $conect->consulta("INSERT INTO usuario_rol(ROL_R) 
 
-
-
-
-            //$conect->consulta("INSERT INTO asesor(NOMBRE_U, NOMBRES_A, APELLIDOS_A) VALUES('$Realname','$Realname','$apellidoUsuario')");  
+            $conect->consulta("INSERT INTO asesor(NOMBRE_U, NOMBRES_A, APELLIDOS_A) VALUES('$name','$RealName','$apellidoUsuario')");  
+            $conect->consulta("INSERT INTO usuario_rol(NOMBRE_U, ROL_R) VALUES('$name','$rol')");  
 
             echo "Enviado!";
             echo '<script>
