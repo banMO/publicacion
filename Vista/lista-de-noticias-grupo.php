@@ -1,8 +1,12 @@
 <?php
     include '../Modelo/conexion.php';
-    $con=new conexion();
-    
-    //$x="camaleon";
+   
+  $conexion = mysql_connect("localhost","root","");
+	//Control
+	if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
+	mysql_select_db("saetis",$conexion);
+   session_start();
+ $UsuarioActivo = $_SESSION['usuario'];
 ?>
 
 <html>

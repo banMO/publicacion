@@ -1,6 +1,12 @@
 !DOCTYPE html>
 <?php
     include '../Modelo/conexion.php';
+    $conexion = mysql_connect("localhost","root","");
+	//Control
+	if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
+	mysql_select_db("saetis",$conexion);
+   session_start();
+ $UsuarioActivo = $_SESSION['usuario'];
 
 ?>
 <html>
@@ -165,9 +171,9 @@
                             <div class="list-group">
 
                                    <?php
+ 
 
-
-                                        include('config.php');
+                                       // include('config.php');
                                          // Seleciona la tabla de noticias
                                         $selecionar_db = "SELECT * FROM noticias ORDER BY ID_N DESC";
 

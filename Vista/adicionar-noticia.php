@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <?php
     include '../Modelo/conexion.php';
+    $conexion = mysql_connect("localhost","root","");
+	//Control
+	if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
+	mysql_select_db("saetis",$conexion);
+   session_start();
+ $UsuarioActivo = $_SESSION['usuario'];
+ 
 
 ?>
 <html>
@@ -158,15 +165,8 @@
                             
 
 <?php
-session_start();
-  
-    $nombreU = $_SESSION['usuario']  ;
-    $nombreUS = $_POST['nombreU'];
-    $nombreS = $_POST['nombre'];
-    $apellidoS = $_POST['apellido'];
-    $contrasenaS = $_POST['contrasena1'];
 
-include('config.php');
+  
 error_reporting(E_ALL ^ E_NOTICE);
 // Mensaje con campos vacios
 if (!empty($_POST) AND (empty($_POST['titulo']) OR empty($_POST['texto']))) {
@@ -184,7 +184,7 @@ if (isset($_POST['titulo'])) {
        }
 if($titulo == "" && $texto == ""){} else {
 // Adiciona a Noticia 
-$news_add = "INSERT INTO noticias (NOMBRE_U,TITULO, FECHA_N, VIEWS, TEXTO) VALUES ('$nombreUS','".addslashes(mysql_real_escape_string($_POST["titulo"]))."', NOW(), '0', '".addslashes(mysql_real_escape_string($_POST['texto']))."')";
+$news_add = "INSERT INTO noticias (NOMBRE_U,TITULO, FECHA_N, VIEWS, TEXTO) VALUES ('$UsuarioActivo','".addslashes(mysql_real_escape_string($_POST["titulo"]))."', NOW(), '0', '".addslashes(mysql_real_escape_string($_POST['texto']))."')";
 
 $news_add = mysql_query($news_add)
 or die ("Error.");

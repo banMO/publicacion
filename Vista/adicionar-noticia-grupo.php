@@ -1,6 +1,12 @@
 <?php
     include '../Modelo/conexion.php';
-    $con=new conexion();
+  
+    $conexion = mysql_connect("localhost","root","");
+	//Control
+	if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
+	mysql_select_db("saetis",$conexion);
+   session_start();
+ $UsuarioActivo = $_SESSION['usuario'];
     
     //$x="camaleon";
 ?>
@@ -301,7 +307,7 @@ if (isset($_POST['titulo'])) {
        }
 if($titulo == "" && $texto == ""){} else {
 // Adiciona a Noticia 
-$news_add = "INSERT INTO noticias (NOMBRE_U,TITULO, FECHA_N, VIEWS, TEXTO) VALUES ('leticia','".addslashes(mysql_real_escape_string($_POST["titulo"]))."', NOW(), '0', '".addslashes(mysql_real_escape_string($_POST['texto']))."')";
+$news_add = "INSERT INTO noticias (NOMBRE_U,TITULO, FECHA_N, VIEWS, TEXTO) VALUES ('$UsuarioActivo','".addslashes(mysql_real_escape_string($_POST["titulo"]))."', NOW(), '0', '".addslashes(mysql_real_escape_string($_POST['texto']))."')";
 
 $news_add = mysql_query($news_add)
 or die ("Error.");

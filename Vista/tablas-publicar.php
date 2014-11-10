@@ -13,7 +13,9 @@
 	//Control
 	if(!$conexion){die('La conexion ha fallado por:'.mysql_error());}
 	mysql_select_db("saetis",$conexion);
-   
+   session_start();
+ $UsuarioActivo = $_SESSION['usuario'];
+ echo $UsuarioActivo;
     //$con=new conexion();
 $ana=$_POST['grupoempresa'];
 $identificador="*";
@@ -42,7 +44,7 @@ $eshora=strftime($horap).":00";
 	echo $eshora."</br>";
 	echo $fechap;
 	//echo $horap;		 
-	$comentario_add = mysql_query("INSERT INTO registro (NOMBRE_U,TIPO_T,ESTADO_E,NOMBRE_R,FECHA_R,HORA_R) VALUES ('Leticia','publicaciones','Habilitado','$titulo','$fecha','$hora')")or
+	$comentario_add = mysql_query("INSERT INTO registro (NOMBRE_U,TIPO_T,ESTADO_E,NOMBRE_R,FECHA_R,HORA_R) VALUES ('$UsuarioActivo','publicaciones','Habilitado','$titulo','$fecha','$hora')")or
 			die("Error al s");
 var_dump($comentario_add);
 	$query= mysql_query("SELECT MAX(ID_R) AS 'ID_R' FROM registro");
